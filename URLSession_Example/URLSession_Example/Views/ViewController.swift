@@ -47,7 +47,11 @@ final class ViewController: UIViewController {
     // MARK: - network
 
     private func startLoad() {
-        let url = URL(string: "https://api.unsplash.com/photos")!
+        var url = URL(string: "https://api.unsplash.com/photos")!
+        url.append(queryItems: [
+            URLQueryItem(name: "per_page", value: "20"),
+            URLQueryItem(name: "order_by", value: "popular")
+        ])
         var urlRequest = URLRequest(url: url)
         urlRequest.allHTTPHeaderFields = ["Authorization": "Client-ID \(clientId)"]
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
