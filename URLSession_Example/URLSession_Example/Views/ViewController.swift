@@ -53,7 +53,7 @@ final class ViewController: UIViewController {
             URLQueryItem(name: "order_by", value: "popular")
         ])
         var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = ["Authorization": "Client-ID \(clientId)"]
+        urlRequest.allHTTPHeaderFields = ["Authorization": "Client-ID KVtPVt64UrQx60c_6Ne2odkNi1hYv7UPnVh5DbhtjG4"]
         let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
             if let error = error {
                 self.handleClientError(error)

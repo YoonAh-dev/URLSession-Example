@@ -18,6 +18,7 @@
 		B572C8902A02943900F86A3B /* URLSession_ExampleUITestsLaunchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C88F2A02943900F86A3B /* URLSession_ExampleUITestsLaunchTests.swift */; };
 		B572C8A12A03849100F86A3B /* PhotoCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A02A03849100F86A3B /* PhotoCollectionViewCell.swift */; };
 		B572C8A42A03A43300F86A3B /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A32A03A43300F86A3B /* Image.swift */; };
+		B572C8A72A03CB5000F86A3B /* CollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A62A03CB5000F86A3B /* CollectionViewController.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -53,6 +54,7 @@
 		B572C88F2A02943900F86A3B /* URLSession_ExampleUITestsLaunchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = URLSession_ExampleUITestsLaunchTests.swift; sourceTree = "<group>"; };
 		B572C8A02A03849100F86A3B /* PhotoCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PhotoCollectionViewCell.swift; sourceTree = "<group>"; };
 		B572C8A32A03A43300F86A3B /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		B572C8A62A03CB5000F86A3B /* CollectionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewController.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -143,6 +145,7 @@
 			children = (
 				B572C89F2A03848400F86A3B /* Cell */,
 				B572C8702A02943800F86A3B /* ViewController.swift */,
+				B572C8A62A03CB5000F86A3B /* CollectionViewController.swift */,
 				B572C8722A02943800F86A3B /* Main.storyboard */,
 			);
 			path = Views;
@@ -304,6 +307,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B572C8A72A03CB5000F86A3B /* CollectionViewController.swift in Sources */,
 				B572C8712A02943800F86A3B /* ViewController.swift in Sources */,
 				B572C8A12A03849100F86A3B /* PhotoCollectionViewCell.swift in Sources */,
 				B572C86D2A02943800F86A3B /* AppDelegate.swift in Sources */,

@@ -50,12 +50,22 @@
                                     </collectionViewCell>
                                 </cells>
                             </collectionView>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqD-BM-fYL">
+                                <rect key="frame" x="118.66666666666669" y="619" width="156" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="filled" title="Create Collection"/>
+                                <connections>
+                                    <segue destination="Nug-GJ-TFa" kind="presentation" modalPresentationStyle="fullScreen" id="IcS-ku-PAs"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bu6-Nd-d8S" secondAttribute="trailing" id="23j-2Z-kcj"/>
                             <constraint firstItem="bu6-Nd-d8S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PsB-l3-Inc"/>
+                            <constraint firstItem="RqD-BM-fYL" firstAttribute="top" secondItem="bu6-Nd-d8S" secondAttribute="bottom" constant="100" id="VOk-uv-vu6"/>
+                            <constraint firstItem="RqD-BM-fYL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YjD-C5-OdW"/>
                             <constraint firstItem="bu6-Nd-d8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jpd-q5-cs6"/>
                         </constraints>
                     </view>
@@ -66,6 +76,92 @@
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
             <point key="canvasLocation" x="44" y="4"/>
+        </scene>
+        <!--CollectionViewController-->
+        <scene sceneID="mkk-f2-1DR">
+            <objects>
+                <viewController storyboardIdentifier="CollectionViewController" title="CollectionViewController" id="Nug-GJ-TFa" customClass="CollectionViewController" customModule="URLSession_Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="zbi-u3-Zes">
+                        <rect key="frame" x="0.0" y="0.0" width="393" height="852"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="tGo-gP-dYm">
+                                <rect key="frame" x="20" y="159" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <textField opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="248" contentHorizontalAlignment="left" contentVerticalAlignment="center" borderStyle="roundedRect" textAlignment="natural" minimumFontSize="17" translatesAutoresizingMaskIntoConstraints="NO" id="00W-QX-yUZ">
+                                <rect key="frame" x="20" y="243" width="353" height="34"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <textInputTraits key="textInputTraits"/>
+                            </textField>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="title" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="m66-Gd-fGX">
+                                <rect key="frame" x="20" y="128" width="29" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="description" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="kIf-T2-uej">
+                                <rect key="frame" x="20" y="212" width="86" height="21"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="1wg-eH-nOb">
+                                <rect key="frame" x="159" y="367" width="75" height="35"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="tinted" title="Create"/>
+                                <connections>
+                                    <action selector="didTapCreateCollectionButton:" destination="Nug-GJ-TFa" eventType="touchUpInside" id="uDX-Nm-Gmu"/>
+                                </connections>
+                            </button>
+                            <segmentedControl opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="left" contentVerticalAlignment="top" segmentControlStyle="plain" selectedSegmentIndex="0" translatesAutoresizingMaskIntoConstraints="NO" id="4W9-fa-oyb">
+                                <rect key="frame" x="135" y="297" width="123" height="32"/>
+                                <segments>
+                                    <segment title="public"/>
+                                    <segment title="private"/>
+                                </segments>
+                                <connections>
+                                    <action selector="didChangedSegmentValue:" destination="Nug-GJ-TFa" eventType="valueChanged" id="b6j-Pq-9Lt"/>
+                                </connections>
+                            </segmentedControl>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP2-fv-Dn2">
+                                <rect key="frame" x="333" y="59" width="40" height="32"/>
+                                <buttonConfiguration key="configuration" style="plain"/>
+                                <connections>
+                                    <action selector="didTapCloseButton:" destination="Nug-GJ-TFa" eventType="touchUpInside" id="7EZ-NN-pUS"/>
+                                </connections>
+                            </button>
+                        </subviews>
+                        <viewLayoutGuide key="safeArea" id="BGg-KN-e8K"/>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="tGo-gP-dYm" firstAttribute="top" secondItem="m66-Gd-fGX" secondAttribute="bottom" constant="10" id="6u1-nL-qc4"/>
+                            <constraint firstItem="kIf-T2-uej" firstAttribute="leading" secondItem="BGg-KN-e8K" secondAttribute="leading" constant="20" id="D9O-9H-73B"/>
+                            <constraint firstItem="tGo-gP-dYm" firstAttribute="top" secondItem="BGg-KN-e8K" secondAttribute="top" constant="100" id="DFX-ns-XWe"/>
+                            <constraint firstItem="00W-QX-yUZ" firstAttribute="top" secondItem="kIf-T2-uej" secondAttribute="bottom" constant="10" id="Isg-h3-A4w"/>
+                            <constraint firstItem="00W-QX-yUZ" firstAttribute="top" secondItem="tGo-gP-dYm" secondAttribute="bottom" constant="50" id="Mpx-oT-YiI"/>
+                            <constraint firstItem="1wg-eH-nOb" firstAttribute="centerX" secondItem="zbi-u3-Zes" secondAttribute="centerX" id="OSM-d9-Gsl"/>
+                            <constraint firstItem="BGg-KN-e8K" firstAttribute="trailing" secondItem="DP2-fv-Dn2" secondAttribute="trailing" constant="20" id="V2n-0E-7G6"/>
+                            <constraint firstItem="DP2-fv-Dn2" firstAttribute="top" secondItem="BGg-KN-e8K" secondAttribute="top" id="bCS-pu-g3Y"/>
+                            <constraint firstItem="1wg-eH-nOb" firstAttribute="top" secondItem="00W-QX-yUZ" secondAttribute="bottom" constant="90" id="iCe-p6-hO4"/>
+                            <constraint firstItem="4W9-fa-oyb" firstAttribute="top" secondItem="00W-QX-yUZ" secondAttribute="bottom" constant="20" id="mnd-Jx-RwF"/>
+                            <constraint firstItem="00W-QX-yUZ" firstAttribute="leading" secondItem="BGg-KN-e8K" secondAttribute="leading" constant="20" id="njP-Bm-Kn4"/>
+                            <constraint firstItem="tGo-gP-dYm" firstAttribute="leading" secondItem="BGg-KN-e8K" secondAttribute="leading" constant="20" id="rb2-qJ-0rF"/>
+                            <constraint firstItem="m66-Gd-fGX" firstAttribute="leading" secondItem="BGg-KN-e8K" secondAttribute="leading" constant="20" id="rds-aS-xZP"/>
+                            <constraint firstItem="BGg-KN-e8K" firstAttribute="trailing" secondItem="tGo-gP-dYm" secondAttribute="trailing" constant="20" id="sSH-wW-6hk"/>
+                            <constraint firstItem="4W9-fa-oyb" firstAttribute="centerX" secondItem="zbi-u3-Zes" secondAttribute="centerX" id="tf5-ka-rdr"/>
+                            <constraint firstItem="BGg-KN-e8K" firstAttribute="trailing" secondItem="00W-QX-yUZ" secondAttribute="trailing" constant="20" id="ybA-yx-F0q"/>
+                        </constraints>
+                    </view>
+                    <connections>
+                        <outlet property="descriptionTextField" destination="00W-QX-yUZ" id="KFM-ok-CfU"/>
+                        <outlet property="titleTextField" destination="tGo-gP-dYm" id="URa-J3-52Y"/>
+                    </connections>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="oMu-mQ-z8a" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="1039" y="4"/>
         </scene>
     </scenes>
     <resources>
