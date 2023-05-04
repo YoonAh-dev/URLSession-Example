@@ -121,9 +121,6 @@
                                     <segment title="public"/>
                                     <segment title="private"/>
                                 </segments>
-                                <connections>
-                                    <action selector="didChangedSegmentValue:" destination="Nug-GJ-TFa" eventType="valueChanged" id="b6j-Pq-9Lt"/>
-                                </connections>
                             </segmentedControl>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="close" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DP2-fv-Dn2">
                                 <rect key="frame" x="333" y="59" width="40" height="32"/>
@@ -156,6 +153,7 @@
                     </view>
                     <connections>
                         <outlet property="descriptionTextField" destination="00W-QX-yUZ" id="KFM-ok-CfU"/>
+                        <outlet property="privateSegmentControl" destination="4W9-fa-oyb" id="jeM-fx-lHq"/>
                         <outlet property="titleTextField" destination="tGo-gP-dYm" id="URa-J3-52Y"/>
                     </connections>
                 </viewController>
