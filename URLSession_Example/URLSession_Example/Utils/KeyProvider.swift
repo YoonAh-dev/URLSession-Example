@@ -12,6 +12,7 @@ struct KeyProvider {
     enum KeyType: String {
         case clientId
         case accessToken
+        case username
     }
 
     // MARK: - func

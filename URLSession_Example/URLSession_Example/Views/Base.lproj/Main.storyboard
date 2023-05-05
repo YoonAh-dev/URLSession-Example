@@ -51,25 +51,61 @@
                                 </cells>
                             </collectionView>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="RqD-BM-fYL">
-                                <rect key="frame" x="118.66666666666669" y="619" width="156" height="35"/>
+                                <rect key="frame" x="118.66666666666669" y="669" width="156" height="35"/>
                                 <state key="normal" title="Button"/>
                                 <buttonConfiguration key="configuration" style="filled" title="Create Collection"/>
                                 <connections>
                                     <segue destination="Nug-GJ-TFa" kind="presentation" modalPresentationStyle="fullScreen" id="IcS-ku-PAs"/>
                                 </connections>
                             </button>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" showsHorizontalScrollIndicator="NO" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="-1" estimatedSectionHeaderHeight="-1" sectionFooterHeight="-1" estimatedSectionFooterHeight="-1" translatesAutoresizingMaskIntoConstraints="NO" id="tRh-UE-FR1">
+                                <rect key="frame" x="20" y="539" width="353" height="110"/>
+                                <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                                <prototypes>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="tNP-Iy-4K8">
+                                        <rect key="frame" x="0.0" y="50" width="353" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="tNP-Iy-4K8" id="Zpt-52-KKm">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Qdg-wn-ukL">
+                                        <rect key="frame" x="0.0" y="93.666667938232422" width="353" height="43.666667938232422"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Qdg-wn-ukL" id="NNl-Yp-Hpo">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="43.666667938232422"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                    <tableViewCell clipsSubviews="YES" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" selectionStyle="blue" hidesAccessoryWhenEditing="NO" indentationLevel="1" indentationWidth="0.0" id="Dtd-8u-aYP">
+                                        <rect key="frame" x="0.0" y="137.33333587646484" width="353" height="0.0"/>
+                                        <autoresizingMask key="autoresizingMask"/>
+                                        <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="Dtd-8u-aYP" id="jUl-fc-wo1">
+                                            <rect key="frame" x="0.0" y="0.0" width="353" height="0.0"/>
+                                            <autoresizingMask key="autoresizingMask"/>
+                                        </tableViewCellContentView>
+                                    </tableViewCell>
+                                </prototypes>
+                                <sections/>
+                            </tableView>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="bu6-Nd-d8S" secondAttribute="trailing" id="23j-2Z-kcj"/>
+                            <constraint firstItem="tRh-UE-FR1" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="20" id="841-5P-kY6"/>
+                            <constraint firstItem="tRh-UE-FR1" firstAttribute="top" secondItem="bu6-Nd-d8S" secondAttribute="bottom" constant="20" id="Gi2-ky-qmW"/>
                             <constraint firstItem="bu6-Nd-d8S" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="PsB-l3-Inc"/>
-                            <constraint firstItem="RqD-BM-fYL" firstAttribute="top" secondItem="bu6-Nd-d8S" secondAttribute="bottom" constant="100" id="VOk-uv-vu6"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="tRh-UE-FR1" secondAttribute="trailing" constant="20" id="TAz-vA-oek"/>
+                            <constraint firstItem="RqD-BM-fYL" firstAttribute="top" secondItem="bu6-Nd-d8S" secondAttribute="bottom" constant="150" id="VOk-uv-vu6"/>
                             <constraint firstItem="RqD-BM-fYL" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="YjD-C5-OdW"/>
                             <constraint firstItem="bu6-Nd-d8S" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="jpd-q5-cs6"/>
+                            <constraint firstItem="RqD-BM-fYL" firstAttribute="top" secondItem="tRh-UE-FR1" secondAttribute="bottom" constant="20" id="wBr-b6-mwM"/>
                         </constraints>
                     </view>
                     <connections>
+                        <outlet property="collectionTableView" destination="tRh-UE-FR1" id="grd-mR-seI"/>
                         <outlet property="photoCollectionView" destination="bu6-Nd-d8S" id="iiL-rw-5Kd"/>
                     </connections>
                 </viewController>

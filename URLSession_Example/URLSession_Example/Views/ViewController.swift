@@ -22,11 +22,15 @@ final class ViewController: UIViewController {
         flowLayout.sectionInset = .zero
         return flowLayout
     }()
-
+    @IBOutlet weak var collectionTableView: UITableView!
+    
     // MARK: - property
 
     private var imageURLs: [String] = [] {
         didSet { self.photoCollectionView.reloadData() }
+    }
+    private var collections: [String] = [] {
+        didSet { self.collectionTableView.reloadData() }
     }
 
     // MARK: - life cycle
@@ -34,6 +38,7 @@ final class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         self.configureCollectionView()
+        self.configureTableView()
         self.startLoad()
     }
 
@@ -44,36 +49,10 @@ final class ViewController: UIViewController {
         self.photoCollectionView.collectionViewLayout = self.flowLayout
     }
 
-    // MARK: - network
-
-    private func startLoad() {
-        var url = URL(string: "https://api.unsplash.com/photos")!
-        url.append(queryItems: [
-            URLQueryItem(name: "per_page", value: "20"),
-            URLQueryItem(name: "order_by", value: "popular")
-        ])
-        var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                self.handleClientError(error)
-                return
-            }
-
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                self.handleServerError(response)
-                return
-            }
-
-            if let mimeType = httpResponse.mimeType, mimeType == "application/json",
-               let data = data {
-                self.handleImages(data)
-            }
-        }
-        task.resume()
+    private func configureTableView() {
+        self.collectionTableView.dataSource = self
     }
-    
+
     private func handleImages(_ data: Data) {
         do {
             let decoder = JSONDecoder()
@@ -100,6 +79,53 @@ final class ViewController: UIViewController {
             self.makeAlert(title: "문제 발생", message: "[\(statusCode)] 서버에서 문제가 발생했습니다.")
         }
     }
+
+    // MARK: - network
+
+    private func startLoad() {
+        self.fetchImages()
+        self.fetchCollections()
+    }
+
+    private func fetchImages() {
+        var url = URL(string: "https://api.unsplash.com/photos")!
+        url.append(queryItems: [
+            URLQueryItem(name: "per_page", value: "20"),
+            URLQueryItem(name: "order_by", value: "popular")
+        ])
+        var urlRequest = URLRequest(url: url)
+        urlRequest.allHTTPHeaderFields = ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
+        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
+            if let error = error {
+                self.handleClientError(error)
+                return
+            }
+
+            guard let httpResponse = response as? HTTPURLResponse,
+                  (200...299).contains(httpResponse.statusCode) else {
+                self.handleServerError(response)
+                return
+            }
+
+            if let mimeType = httpResponse.mimeType, mimeType == "application/json",
+               let data = data {
+                self.handleImages(data)
+            }
+        }
+        task.resume()
+    }
+
+    private func fetchCollections() {
+        let session: URLSession = {
+            let configuration = URLSessionConfiguration.default
+            configuration.waitsForConnectivity = true
+            return URLSession(configuration: configuration,
+                              delegate: self, delegateQueue: nil)
+        }()
+        let url = URL(string: "https://api.unsplash.com/users/\(KeyProvider.appKey(of: .username))/collections")!
+        let task = session.dataTask(with: url)
+        task.resume()
+    }
 }
 
 // MARK: - UICollectionViewDataSource
@@ -114,4 +140,24 @@ extension ViewController: UICollectionViewDataSource {
         cell.configureCell(imageUrl: imageUrl)
         return cell
     }
+}
+
+// MARK: - UITableViewDataSource
+extension ViewController: UITableViewDataSource {
+    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
+        return self.collections.count
+    }
+
+    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        let cell = tableView.dequeueReusableCell(withIdentifier: "cell", for: indexPath) as UITableViewCell
+        var cellConfigure = cell.defaultContentConfiguration()
+        cellConfigure.text =  self.collections[indexPath.row]
+        cell.contentConfiguration = cellConfigure
+        return cell
+    }
+}
+
+// MARK: - URLSessionDataDelegate
+extension ViewController: URLSessionDataDelegate {
+
 }
