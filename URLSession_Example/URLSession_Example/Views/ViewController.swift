@@ -12,6 +12,7 @@ final class ViewController: UIViewController {
     // MARK: - ui component
 
     @IBOutlet weak var photoCollectionView: UICollectionView!
+    @IBOutlet weak var collectionTableView: UITableView!
 
     private let flowLayout: UICollectionViewFlowLayout = {
         let flowLayout = UICollectionViewFlowLayout()
@@ -22,16 +23,13 @@ final class ViewController: UIViewController {
         flowLayout.sectionInset = .zero
         return flowLayout
     }()
-    @IBOutlet weak var collectionTableView: UITableView!
     
     // MARK: - property
 
     private var imageURLs: [String] = [] {
         didSet { self.photoCollectionView.reloadData() }
     }
-    private var collections: [String] = [] {
-        didSet { self.collectionTableView.reloadData() }
-    }
+    private var collections: [String] = []
 
     // MARK: - life cycle
 
@@ -62,6 +60,17 @@ final class ViewController: UIViewController {
             }
         } catch let error {
             self.handleClientError(error)
+        }
+    }
+
+    private func handleCollections(_ data: Data) -> [String] {
+        do {
+            let decoder = JSONDecoder()
+            let collections: [CollectionResponseDTO] = try decoder.decode([CollectionResponseDTO].self, from: data)
+            return collections.map { $0.title ?? "" }
+        } catch let error {
+            self.handleClientError(error)
+            return []
         }
     }
 
@@ -122,8 +131,10 @@ final class ViewController: UIViewController {
             return URLSession(configuration: configuration,
                               delegate: self, delegateQueue: nil)
         }()
-        let url = URL(string: "https://api.unsplash.com/users/\(KeyProvider.appKey(of: .username))/collections")!
-        let task = session.dataTask(with: url)
+        let url = URL(string: "https://api.unsplash.com/collections")!
+        var urlRequest = URLRequest(url: url)
+        urlRequest.allHTTPHeaderFields = ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
+        let task = session.dataTask(with: urlRequest)
         task.resume()
     }
 }
@@ -159,5 +170,32 @@ extension ViewController: UITableViewDataSource {
 
 // MARK: - URLSessionDataDelegate
 extension ViewController: URLSessionDataDelegate {
+    func urlSession(_ session: URLSession,
+                    dataTask: URLSessionDataTask,
+                    didReceive response: URLResponse,
+                    completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
+        guard let response = response as? HTTPURLResponse, (200...299) ~= response.statusCode,
+              let mimeType = response.mimeType, mimeType == "application/json" else {
+            completionHandler(.cancel)
+            return
+        }
+        completionHandler(.allow)
+    }
 
+    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
+        let collections = self.handleCollections(data)
+        DispatchQueue.main.async {
+            self.collections = collections
+        }
+    }
+
+    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
+        DispatchQueue.main.async {
+            if let error = error {
+                self.handleClientError(error)
+            } else if !self.collections.isEmpty {
+                self.collectionTableView.reloadData()
+            }
+        }
+    }
 }
