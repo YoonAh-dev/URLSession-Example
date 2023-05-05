@@ -22,6 +22,8 @@
 		B572C8A92A03E46500F86A3B /* CollectionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */; };
 		B572C8AC2A03E5A800F86A3B /* MakeAlert+UIViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8AB2A03E5A800F86A3B /* MakeAlert+UIViewController.swift */; };
 		B572C8AE2A03E81400F86A3B /* CollectionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */; };
+		B572C8B22A049C1300F86A3B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B572C8B12A049C1300F86A3B /* Keys.plist */; };
+		B572C8B42A049CAB00F86A3B /* KeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8B32A049CAB00F86A3B /* KeyProvider.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -61,6 +63,8 @@
 		B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionRequestDTO.swift; sourceTree = "<group>"; };
 		B572C8AB2A03E5A800F86A3B /* MakeAlert+UIViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "MakeAlert+UIViewController.swift"; sourceTree = "<group>"; };
 		B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionResponseDTO.swift; sourceTree = "<group>"; };
+		B572C8B12A049C1300F86A3B /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
+		B572C8B32A049CAB00F86A3B /* KeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyProvider.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -140,6 +144,7 @@
 		B572C89C2A03841700F86A3B /* Supports */ = {
 			isa = PBXGroup;
 			children = (
+				B572C8B12A049C1300F86A3B /* Keys.plist */,
 				B572C87A2A02943900F86A3B /* Info.plist */,
 				B572C86C2A02943800F86A3B /* AppDelegate.swift */,
 				B572C86E2A02943800F86A3B /* SceneDelegate.swift */,
@@ -189,6 +194,7 @@
 			isa = PBXGroup;
 			children = (
 				B572C8AB2A03E5A800F86A3B /* MakeAlert+UIViewController.swift */,
+				B572C8B32A049CAB00F86A3B /* KeyProvider.swift */,
 			);
 			path = Utils;
 			sourceTree = "<group>";
@@ -297,6 +303,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B572C8B22A049C1300F86A3B /* Keys.plist in Resources */,
 				B572C8792A02943900F86A3B /* LaunchScreen.storyboard in Resources */,
 				B572C8762A02943900F86A3B /* Assets.xcassets in Resources */,
 				B572C8742A02943800F86A3B /* Main.storyboard in Resources */,
@@ -332,6 +339,7 @@
 				B572C86F2A02943800F86A3B /* SceneDelegate.swift in Sources */,
 				B572C8A92A03E46500F86A3B /* CollectionRequestDTO.swift in Sources */,
 				B572C8A42A03A43300F86A3B /* Image.swift in Sources */,
+				B572C8B42A049CAB00F86A3B /* KeyProvider.swift in Sources */,
 				B572C8AE2A03E81400F86A3B /* CollectionResponseDTO.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

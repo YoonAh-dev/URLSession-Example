@@ -33,7 +33,7 @@ final class CollectionViewController: UIViewController {
         var urlRequest = URLRequest(url: url)
         urlRequest.httpMethod = "POST"
         urlRequest.allHTTPHeaderFields = [
-            "Authorization": "Bearer \(AccessToken)",
+            "Authorization": "\(KeyProvider.appKey(of: .accessToken))",
             "Content-Type": "application/json"
         ]
         return urlRequest
