@@ -26,84 +26,37 @@ final class CollectionViewController: UIViewController {
     @IBOutlet weak var privateSegmentControl: UISegmentedControl!
     @IBOutlet weak var descriptionTextField: UITextField!
 
-    // MARK: - property
-
-    private var urlRequest: URLRequest {
-        let url = URL(string: "https://api.unsplash.com/collections")!
-        var urlRequest = URLRequest(url: url)
-        urlRequest.httpMethod = "POST"
-        urlRequest.allHTTPHeaderFields = [
-            "Authorization": "\(KeyProvider.appKey(of: .accessToken))",
-            "Content-Type": "application/json"
-        ]
-        return urlRequest
-    }
-
-    // MARK: - life cycle
-    
-    override func viewDidLoad() {
-        super.viewDidLoad()
-    }
-
     // MARK: - func
 
-    private func handleClientError(_ error: Error) {
+    private func handleError(_ message: String) {
         DispatchQueue.main.async {
-            self.makeAlert(title: "문제 발생", message: error.localizedDescription)
-        }
-    }
-
-    private func handleServerError(_ response: URLResponse?) {
-        guard let httpResponse = response as? HTTPURLResponse else { return }
-        let statusCode = httpResponse.statusCode
-
-        DispatchQueue.main.async {
-            self.makeAlert(title: "문제 발생", message: "[\(statusCode)] 서버에서 문제가 발생했습니다.")
-        }
-    }
-
-    private func handleCollection(_ data: Data) {
-        do {
-            let decoder = JSONDecoder()
-            let collection: CollectionResponseDTO = try decoder.decode(CollectionResponseDTO.self, from: data)
-            DispatchQueue.main.async {
-                dump(collection)
-                self.dismiss(animated: true)
-            }
-        } catch let error {
-            self.handleClientError(error)
+            self.makeAlert(title: "문제 발생", message: message)
         }
     }
 
     // MARK: - network
 
     private func uploadCollection(_ collection: CollectionRequestDTO) {
-        guard let data = self.encodeCollection(collection) else { return }
-        let task = URLSession.shared.uploadTask(with: self.urlRequest, from: data) { data, response, error in
-            if let error = error {
-                self.handleClientError(error)
-                return
-            }
+        Task {
+            do {
+                let response = try await CollectionAPI().uploadCollection(collection: collection)
 
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                self.handleServerError(response)
-                return
-            }
-
-            if let mimeType = httpResponse.mimeType, mimeType == "application/json",
-               let data = data {
-                self.handleCollection(data)
+                if let data = response.data {
+                    DispatchQueue.main.async {
+                        dump(data)
+                        self.dismiss(animated: true)
+                    }
+                } else {
+                    self.handleError("데이터가 들어오지 않았습니다.")
+                }
+            } catch NetworkError.decodingError {
+                self.handleError("데이터 디코딩에 실패했습니다.")
+            } catch NetworkError.clientError(let message) {
+                self.handleError(message ?? "")
+            } catch NetworkError.serverError {
+                self.handleError("서버에 문제가 발생하였습니다.")
             }
         }
-        task.resume()
-    }
-
-    private func encodeCollection(_ collection: CollectionRequestDTO) -> Data? {
-        guard let uploadData = try? JSONEncoder().encode(collection) else {
-            return nil
-        }
-        return uploadData
     }
 
     // MARK: - IBAction
@@ -116,7 +69,7 @@ final class CollectionViewController: UIViewController {
         var collection: CollectionRequestDTO
 
         guard let title = self.titleTextField.text, title != "" else {
-            self.handleClientError(CollectionError.requiredFieldNotEntered)
+            self.handleError(CollectionError.requiredFieldNotEntered.errorDescription ?? "")
             return
         }
 
