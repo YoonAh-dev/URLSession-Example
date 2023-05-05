@@ -13,7 +13,7 @@ enum CollectionEndPoint {
 }
 
 extension CollectionEndPoint: EndPointable {
-    var requestTimeOut: Float {
+    var requestTimeOut: Double {
         return 20
     }
 

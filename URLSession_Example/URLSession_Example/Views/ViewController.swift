@@ -29,7 +29,9 @@ final class ViewController: UIViewController {
     private var imageURLs: [String] = [] {
         didSet { self.photoCollectionView.reloadData() }
     }
-    private var collections: [String] = []
+    private var collections: [String] = [] {
+        didSet { self.collectionTableView.reloadData() }
+    }
 
     // MARK: - life cycle
 
@@ -51,41 +53,9 @@ final class ViewController: UIViewController {
         self.collectionTableView.dataSource = self
     }
 
-    private func handleImages(_ data: Data) {
-        do {
-            let decoder = JSONDecoder()
-            let images: [Image] = try decoder.decode([Image].self, from: data)
-            DispatchQueue.main.async {
-                self.imageURLs = images.compactMap { $0.urls?.regular }
-            }
-        } catch let error {
-            self.handleClientError(error)
-        }
-    }
-
-    private func handleCollections(_ data: Data) -> [String] {
-        do {
-            let decoder = JSONDecoder()
-            let collections: [CollectionResponseDTO] = try decoder.decode([CollectionResponseDTO].self, from: data)
-            return collections.map { $0.title ?? "" }
-        } catch let error {
-            self.handleClientError(error)
-            return []
-        }
-    }
-
-    private func handleClientError(_ error: Error) {
+    private func handleError(_ message: String) {
         DispatchQueue.main.async {
-            self.makeAlert(title: "문제 발생", message: error.localizedDescription)
-        }
-    }
-
-    private func handleServerError(_ response: URLResponse?) {
-        guard let httpResponse = response as? HTTPURLResponse else { return }
-        let statusCode = httpResponse.statusCode
-
-        DispatchQueue.main.async {
-            self.makeAlert(title: "문제 발생", message: "[\(statusCode)] 서버에서 문제가 발생했습니다.")
+            self.makeAlert(title: "문제 발생", message: message)
         }
     }
 
@@ -97,45 +67,47 @@ final class ViewController: UIViewController {
     }
 
     private func fetchImages() {
-        var url = URL(string: "https://api.unsplash.com/photos")!
-        url.append(queryItems: [
-            URLQueryItem(name: "per_page", value: "20"),
-            URLQueryItem(name: "order_by", value: "popular")
-        ])
-        var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
-        let task = URLSession.shared.dataTask(with: urlRequest) { data, response, error in
-            if let error = error {
-                self.handleClientError(error)
-                return
-            }
+        Task {
+            do {
+                let response = try await PhotoAPI().fetchImages(perPage: 3, orderBy: "popular")
 
-            guard let httpResponse = response as? HTTPURLResponse,
-                  (200...299).contains(httpResponse.statusCode) else {
-                self.handleServerError(response)
-                return
-            }
-
-            if let mimeType = httpResponse.mimeType, mimeType == "application/json",
-               let data = data {
-                self.handleImages(data)
+                if let data = response.data {
+                    DispatchQueue.main.async {
+                        self.imageURLs = data.compactMap { $0.urls?.regular }
+                    }
+                } else {
+                    self.handleError("데이터가 들어오지 않았습니다.")
+                }
+            } catch NetworkError.decodingError {
+                self.handleError("데이터 디코딩에 실패했습니다.")
+            } catch NetworkError.clientError(let message) {
+                self.handleError(message ?? "")
+            } catch NetworkError.serverError {
+                self.handleError("서버에 문제가 발생하였습니다.")
             }
         }
-        task.resume()
     }
 
     private func fetchCollections() {
-        let session: URLSession = {
-            let configuration = URLSessionConfiguration.default
-            configuration.waitsForConnectivity = true
-            return URLSession(configuration: configuration,
-                              delegate: self, delegateQueue: nil)
-        }()
-        let url = URL(string: "https://api.unsplash.com/collections")!
-        var urlRequest = URLRequest(url: url)
-        urlRequest.allHTTPHeaderFields = ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
-        let task = session.dataTask(with: urlRequest)
-        task.resume()
+        Task {
+            do {
+                let response = try await CollectionAPI().fetchCollections()
+
+                if let data = response.data {
+                    DispatchQueue.main.async {
+                        self.collections = data.map { $0.title ?? "" }
+                    }
+                } else {
+                    self.handleError("데이터가 들어오지 않았습니다.")
+                }
+            } catch NetworkError.decodingError {
+                self.handleError("데이터 디코딩에 실패했습니다.")
+            } catch NetworkError.clientError(let message) {
+                self.handleError(message ?? "")
+            } catch NetworkError.serverError {
+                self.handleError("서버에 문제가 발생하였습니다.")
+            }
+        }
     }
 }
 
@@ -165,37 +137,5 @@ extension ViewController: UITableViewDataSource {
         cellConfigure.text =  self.collections[indexPath.row]
         cell.contentConfiguration = cellConfigure
         return cell
-    }
-}
-
-// MARK: - URLSessionDataDelegate
-extension ViewController: URLSessionDataDelegate {
-    func urlSession(_ session: URLSession,
-                    dataTask: URLSessionDataTask,
-                    didReceive response: URLResponse,
-                    completionHandler: @escaping (URLSession.ResponseDisposition) -> Void) {
-        guard let response = response as? HTTPURLResponse, (200...299) ~= response.statusCode,
-              let mimeType = response.mimeType, mimeType == "application/json" else {
-            completionHandler(.cancel)
-            return
-        }
-        completionHandler(.allow)
-    }
-
-    func urlSession(_ session: URLSession, dataTask: URLSessionDataTask, didReceive data: Data) {
-        let collections = self.handleCollections(data)
-        DispatchQueue.main.async {
-            self.collections = collections
-        }
-    }
-
-    func urlSession(_ session: URLSession, task: URLSessionTask, didCompleteWithError error: Error?) {
-        DispatchQueue.main.async {
-            if let error = error {
-                self.handleClientError(error)
-            } else if !self.collections.isEmpty {
-                self.collectionTableView.reloadData()
-            }
-        }
     }
 }

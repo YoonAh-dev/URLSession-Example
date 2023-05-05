@@ -12,7 +12,7 @@ enum PhotoEndPoint {
 }
 
 extension PhotoEndPoint: EndPointable {
-    var requestTimeOut: Float {
+    var requestTimeOut: Double {
         return 20
     }
 
