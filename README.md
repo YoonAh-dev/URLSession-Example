@@ -6,7 +6,39 @@
 - [URLSession 뜯어보기 - Shared Session 사용해서 데이터 보내고 받아보기](https://yoonah-dev.oopy.io/a187c843-11d1-4d53-8359-b1ec593a1729)
 - [URLSession 뜯어보기 - URLSessionConfiguration 사용, 네트워크 코드 공통화 시키기](https://yoonah-dev.oopy.io/5862dd7a-84c2-413a-8a3e-b19407109562)
 
-<br><br>
+<br>
+
+## 💭 네트워크 코드 공통화
+현재 브랜치에는 네트워크 코드를 공통화하여 동일한 코드가 반복되지 않게끔 했습니다. 하단에 있는 네트워크 코드들을 더 쉽고 간편하게 사용할 수 있습니다.
+
+```swift
+private func fetchImages() {
+    Task {
+        do {
+            let response = try await PhotoAPI().fetchImages(perPage: 3, orderBy: "popular")
+
+            if let data = response.data {
+                DispatchQueue.main.async {
+                    self.imageURLs = data.compactMap { $0.urls?.regular }
+                }
+            } else {
+                self.handleError("데이터가 들어오지 않았습니다.")
+            }
+        } catch NetworkError.decodingError {
+            self.handleError("데이터 디코딩에 실패했습니다.")
+        } catch NetworkError.clientError(let message) {
+            self.handleError(message ?? "")
+        } catch NetworkError.serverError {
+            self.handleError("서버에 문제가 발생하였습니다.")
+        }
+    }
+}
+```
+<br>
+
+더 자세한 내용은 `Networks` 폴더를 참고해주세요.
+
+<br>
 
 ## 💭 ViewController
 
