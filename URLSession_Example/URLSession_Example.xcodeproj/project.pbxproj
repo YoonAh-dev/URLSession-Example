@@ -46,6 +46,7 @@
 		B572C8AE2A03E81400F86A3B /* CollectionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */; };
 		B572C8B22A049C1300F86A3B /* Keys.plist in Resources */ = {isa = PBXBuildFile; fileRef = B572C8B12A049C1300F86A3B /* Keys.plist */; };
 		B572C8B42A049CAB00F86A3B /* KeyProvider.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8B32A049CAB00F86A3B /* KeyProvider.swift */; };
+		B5A70D172A14BFEF008A05F2 /* APIEnvironment.swift in Sources */ = {isa = PBXBuildFile; fileRef = B5A70D162A14BFEF008A05F2 /* APIEnvironment.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -130,6 +131,7 @@
 		B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionResponseDTO.swift; sourceTree = "<group>"; };
 		B572C8B12A049C1300F86A3B /* Keys.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Keys.plist; sourceTree = "<group>"; };
 		B572C8B32A049CAB00F86A3B /* KeyProvider.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = KeyProvider.swift; sourceTree = "<group>"; };
+		B5A70D162A14BFEF008A05F2 /* APIEnvironment.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = APIEnvironment.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -224,6 +226,8 @@
 		B57226432A13CD000016B69C /* EXNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				B5A70D162A14BFEF008A05F2 /* APIEnvironment.swift */,
+				B5A70D142A14BFB0008A05F2 /* API */,
 				B57226812A1467A50016B69C /* EndPoint */,
 				B57226762A1464760016B69C /* Example */,
 			);
@@ -411,6 +415,13 @@
 				B572C8B32A049CAB00F86A3B /* KeyProvider.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		B5A70D142A14BFB0008A05F2 /* API */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = API;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -609,6 +620,7 @@
 			files = (
 				B572267E2A1466A20016B69C /* CollectionRequestDTO.swift in Sources */,
 				B57226742A13D3FA0016B69C /* ViewController.swift in Sources */,
+				B5A70D172A14BFEF008A05F2 /* APIEnvironment.swift in Sources */,
 				B572267F2A1466A60016B69C /* CollectionResponseDTO.swift in Sources */,
 				B572267D2A14669E0016B69C /* Image.swift in Sources */,
 				B57226452A13CD000016B69C /* AppDelegate.swift in Sources */,
