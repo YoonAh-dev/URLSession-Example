@@ -21,19 +21,23 @@ public enum MTError: Error {
     case responseDecodingFailed(error: Error)
 
     ///  response failed with an invalid HTTP status code.
-    case statusCodeFailed(reason: StatusCodeFailureReason)
+    case statusCode(reason: StatusCodeReason)
 
+    /// The underlying reason the `.multipartEncodingFailed` error occurred.
     public enum MultipartEncodingFailureReason {
 
     }
 
+    /// The underlying reason the `.parameterEncodingFailed` error occurred.
     public enum ParameterEncodingFailureReason {
         case missingURL
         case jsonEncodingFailure(error: Error)
     }
 
-    public enum StatusCodeFailureReason {
+    /// The underlying reason the `.statusCode` error occurred.
+    public enum StatusCodeReason {
         case noRedirect
+        case clientError
         case serverError
         case invalidStatus
     }
@@ -50,7 +54,7 @@ extension MTError: LocalizedError {
             return reason.errorDescription
         case .responseDecodingFailed(let error):
             return "⛔️ response를 decode할 수 없습니다.\n" + "⛔️ error: \(error.localizedDescription)"
-        case .statusCodeFailed(let reason):
+        case .statusCode(let reason):
             return reason.errorDescription
         }
     }
@@ -73,11 +77,13 @@ extension MTError.ParameterEncodingFailureReason: LocalizedError {
     }
 }
 
-extension MTError.StatusCodeFailureReason: LocalizedError {
+extension MTError.StatusCodeReason: LocalizedError {
     public var errorDescription: String? {
         switch self {
         case .noRedirect:
             return "⛔️ 300..<400 코드가 들어왔습니다."
+        case .clientError:
+            return "⛔️ 400..<500 코드가 들어왔습니다."
         case .serverError:
             return "⛔️ server에서 문제가 발생했습니다."
         case .invalidStatus:
