@@ -26,6 +26,9 @@
 		B57226512A13CD010016B69C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = B572264F2A13CD010016B69C /* LaunchScreen.storyboard */; };
 		B572265C2A13CD010016B69C /* EXNetworkTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572265B2A13CD010016B69C /* EXNetworkTests.swift */; };
 		B57226742A13D3FA0016B69C /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57226482A13CD000016B69C /* ViewController.swift */; };
+		B572267D2A14669E0016B69C /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A32A03A43300F86A3B /* Image.swift */; };
+		B572267E2A1466A20016B69C /* CollectionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */; };
+		B572267F2A1466A60016B69C /* CollectionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */; };
 		B572C86D2A02943800F86A3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86C2A02943800F86A3B /* AppDelegate.swift */; };
 		B572C86F2A02943800F86A3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86E2A02943800F86A3B /* SceneDelegate.swift */; };
 		B572C8712A02943800F86A3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8702A02943800F86A3B /* ViewController.swift */; };
@@ -170,7 +173,6 @@
 		B51AEB6A2A0526FD00EB9107 /* Networks */ = {
 			isa = PBXGroup;
 			children = (
-				B572C8A22A03A42B00F86A3B /* Models */,
 				B51AEB832A053FBD00EB9107 /* APIs */,
 				B51AEB752A052ADA00EB9107 /* EndPoints */,
 				B51AEB6D2A0527DF00EB9107 /* Foundation */,
@@ -221,13 +223,8 @@
 		B57226432A13CD000016B69C /* EXNetwork */ = {
 			isa = PBXGroup;
 			children = (
-				B57226442A13CD000016B69C /* AppDelegate.swift */,
-				B57226462A13CD000016B69C /* SceneDelegate.swift */,
-				B57226482A13CD000016B69C /* ViewController.swift */,
-				B572264A2A13CD000016B69C /* Main.storyboard */,
-				B572264D2A13CD010016B69C /* Assets.xcassets */,
-				B572264F2A13CD010016B69C /* LaunchScreen.storyboard */,
-				B57226522A13CD010016B69C /* Info.plist */,
+				B572267A2A1466740016B69C /* Foundation */,
+				B57226762A1464760016B69C /* Example */,
 			);
 			path = EXNetwork;
 			sourceTree = "<group>";
@@ -240,11 +237,75 @@
 			path = EXNetworkTests;
 			sourceTree = "<group>";
 		};
+		B57226752A1464640016B69C /* Supports */ = {
+			isa = PBXGroup;
+			children = (
+				B57226442A13CD000016B69C /* AppDelegate.swift */,
+				B57226462A13CD000016B69C /* SceneDelegate.swift */,
+				B57226522A13CD010016B69C /* Info.plist */,
+			);
+			path = Supports;
+			sourceTree = "<group>";
+		};
+		B57226762A1464760016B69C /* Example */ = {
+			isa = PBXGroup;
+			children = (
+				B57226782A1464900016B69C /* Views */,
+				B57226772A1464820016B69C /* Resources */,
+				B57226752A1464640016B69C /* Supports */,
+			);
+			path = Example;
+			sourceTree = "<group>";
+		};
+		B57226772A1464820016B69C /* Resources */ = {
+			isa = PBXGroup;
+			children = (
+				B572264D2A13CD010016B69C /* Assets.xcassets */,
+				B572264F2A13CD010016B69C /* LaunchScreen.storyboard */,
+			);
+			path = Resources;
+			sourceTree = "<group>";
+		};
+		B57226782A1464900016B69C /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				B572264A2A13CD000016B69C /* Main.storyboard */,
+				B57226482A13CD000016B69C /* ViewController.swift */,
+			);
+			path = Views;
+			sourceTree = "<group>";
+		};
+		B572267A2A1466740016B69C /* Foundation */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = Foundation;
+			sourceTree = "<group>";
+		};
+		B572267B2A14668C0016B69C /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				B572267C2A1466940016B69C /* Models */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
+		B572267C2A1466940016B69C /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				B572C8A32A03A43300F86A3B /* Image.swift */,
+				B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */,
+				B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */,
+			);
+			path = Models;
+			sourceTree = "<group>";
+		};
 		B572C8602A02943800F86A3B = {
 			isa = PBXGroup;
 			children = (
 				B572C86B2A02943800F86A3B /* URLSession_Example */,
 				B57226432A13CD000016B69C /* EXNetwork */,
+				B572267B2A14668C0016B69C /* Common */,
 				B572C8822A02943900F86A3B /* URLSession_ExampleTests */,
 				B572C88C2A02943900F86A3B /* URLSession_ExampleUITests */,
 				B572265A2A13CD010016B69C /* EXNetworkTests */,
@@ -331,16 +392,6 @@
 				B572C8A02A03849100F86A3B /* PhotoCollectionViewCell.swift */,
 			);
 			path = Cell;
-			sourceTree = "<group>";
-		};
-		B572C8A22A03A42B00F86A3B /* Models */ = {
-			isa = PBXGroup;
-			children = (
-				B572C8A32A03A43300F86A3B /* Image.swift */,
-				B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */,
-				B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */,
-			);
-			path = Models;
 			sourceTree = "<group>";
 		};
 		B572C8AA2A03E58D00F86A3B /* Utils */ = {
@@ -546,7 +597,10 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				B572267E2A1466A20016B69C /* CollectionRequestDTO.swift in Sources */,
 				B57226742A13D3FA0016B69C /* ViewController.swift in Sources */,
+				B572267F2A1466A60016B69C /* CollectionResponseDTO.swift in Sources */,
+				B572267D2A14669E0016B69C /* Image.swift in Sources */,
 				B57226452A13CD000016B69C /* AppDelegate.swift in Sources */,
 				B57226472A13CD000016B69C /* SceneDelegate.swift in Sources */,
 			);
@@ -670,7 +724,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EXNetwork/Info.plist;
+				INFOPLIST_FILE = EXNetwork/Example/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
@@ -697,7 +751,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				GENERATE_INFOPLIST_FILE = YES;
-				INFOPLIST_FILE = EXNetwork/Info.plist;
+				INFOPLIST_FILE = EXNetwork/Example/Supports/Info.plist;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UIMainStoryboardFile = Main;
