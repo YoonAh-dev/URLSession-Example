@@ -19,7 +19,7 @@ public protocol Requestable {
     var method: HTTPMethod { get }
 
     /// The type of HTTP task to be performed.
-//    var task: HTTPTask { get }
+    var task: HTTPTask { get }
 
     /// The headers to be used in the request. Default is `[:]`
     var headers: [String: String] { get }
