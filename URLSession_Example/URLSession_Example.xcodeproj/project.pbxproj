@@ -108,7 +108,7 @@
 		B57226522A13CD010016B69C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B57226572A13CD010016B69C /* EXNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EXNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572265B2A13CD010016B69C /* EXNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXNetworkTests.swift; sourceTree = "<group>"; };
-		B572268B2A1476B70016B69C /* MTNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MTNetwork; path = ../../../../Package/MTNetwork; sourceTree = "<group>"; };
+		B572268C2A14830C0016B69C /* MTNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MTNetwork; sourceTree = "<group>"; };
 		B572C8692A02943800F86A3B /* URLSession_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLSession_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572C86C2A02943800F86A3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B572C86E2A02943800F86A3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -304,7 +304,7 @@
 		B57226892A1475B10016B69C /* Package */ = {
 			isa = PBXGroup;
 			children = (
-				B572268B2A1476B70016B69C /* MTNetwork */,
+				B572268C2A14830C0016B69C /* MTNetwork */,
 			);
 			path = Package;
 			sourceTree = "<group>";
