@@ -34,7 +34,7 @@ public struct EndPoint {
     }
 }
 
-extension EndPoint {
+public extension EndPoint {
     
     /// Returns the `Endpoint` converted to a `URLRequest` if valid. Throws an error otherwise.
     func urlRequest() throws -> URLRequest {
