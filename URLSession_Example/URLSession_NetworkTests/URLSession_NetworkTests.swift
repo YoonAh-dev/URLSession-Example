@@ -1,14 +1,14 @@
 //
-//  EXNetworkTests.swift
-//  EXNetworkTests
+//  URLSession_NetworkTests.swift
+//  URLSession_NetworkTests
 //
-//  Created by SHIN YOON AH on 2023/05/16.
+//  Created by SHIN YOON AH on 2023/05/17.
 //
 
 import XCTest
-@testable import EXNetwork
+@testable import URLSession_Network
 
-final class EXNetworkTests: XCTestCase {
+final class URLSession_NetworkTests: XCTestCase {
 
     override func setUpWithError() throws {
         // Put setup code here. This method is called before the invocation of each test method in the class.

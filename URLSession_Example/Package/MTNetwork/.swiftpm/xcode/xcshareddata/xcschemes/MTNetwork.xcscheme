@@ -38,6 +38,17 @@
                ReferencedContainer = "container:">
             </BuildableReference>
          </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B5A70D722A14D6D9008A05F2"
+               BuildableName = "URLSession_NetworkUITests.xctest"
+               BlueprintName = "URLSession_NetworkUITests"
+               ReferencedContainer = "container:../../URLSession_Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -54,10 +65,10 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B57226412A13CD000016B69C"
-            BuildableName = "EXNetwork.app"
-            BlueprintName = "EXNetwork"
-            ReferencedContainer = "container:../../&#x1100;&#x1169;&#x11bc;&#x1107;&#x116e;&#x110c;&#x116e;&#x11bc;/URLSession-Example/URLSession_Example/URLSession_Example.xcodeproj">
+            BlueprintIdentifier = "B5A70D532A14D6D8008A05F2"
+            BuildableName = "URLSession_Network.app"
+            BlueprintName = "URLSession_Network"
+            ReferencedContainer = "container:../../URLSession_Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
    </LaunchAction>

@@ -14,9 +14,9 @@
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "B57226412A13CD000016B69C"
-               BuildableName = "EXNetwork.app"
-               BlueprintName = "EXNetwork"
+               BlueprintIdentifier = "B5A70D532A14D6D8008A05F2"
+               BuildableName = "URLSession_Network.app"
+               BlueprintName = "URLSession_Network"
                ReferencedContainer = "container:URLSession_Example.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,6 +28,28 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B5A70D682A14D6D9008A05F2"
+               BuildableName = "URLSession_NetworkTests.xctest"
+               BlueprintName = "URLSession_NetworkTests"
+               ReferencedContainer = "container:URLSession_Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
+         <TestableReference
+            skipped = "NO"
+            parallelizable = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "B5A70D722A14D6D9008A05F2"
+               BuildableName = "URLSession_NetworkUITests.xctest"
+               BlueprintName = "URLSession_NetworkUITests"
+               ReferencedContainer = "container:URLSession_Example.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
    </TestAction>
    <LaunchAction
@@ -44,9 +66,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B57226412A13CD000016B69C"
-            BuildableName = "EXNetwork.app"
-            BlueprintName = "EXNetwork"
+            BlueprintIdentifier = "B5A70D532A14D6D8008A05F2"
+            BuildableName = "URLSession_Network.app"
+            BlueprintName = "URLSession_Network"
             ReferencedContainer = "container:URLSession_Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -57,15 +79,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B57226412A13CD000016B69C"
-            BuildableName = "EXNetwork.app"
-            BlueprintName = "EXNetwork"
+            BlueprintIdentifier = "B5A70D532A14D6D8008A05F2"
+            BuildableName = "URLSession_Network.app"
+            BlueprintName = "URLSession_Network"
             ReferencedContainer = "container:URLSession_Example.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">
