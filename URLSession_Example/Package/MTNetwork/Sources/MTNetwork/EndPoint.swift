@@ -21,20 +21,16 @@ public struct EndPoint {
     /// The HTTP header fields for the request.
     let httpHeaderFields: [String: String]?
 
-    let requestTimeout: Float
-
     public init(
         url: String,
         method: HTTPMethod,
         task: HTTPTask,
-        httpHeaderFields: [String : String]?,
-        requestTimeout: Float
+        httpHeaderFields: [String : String]?
     ) {
         self.url = url
         self.method = method
         self.task = task
         self.httpHeaderFields = httpHeaderFields
-        self.requestTimeout = requestTimeout
     }
 }
 
@@ -47,6 +43,20 @@ extension EndPoint {
             throw MTError.invalidURL(error: error)
         }
 
-        var request = URLRequest
+        var request = URLRequest(url: url)
+        request.httpMethod = self.method.rawValue
+        request.allHTTPHeaderFields = self.httpHeaderFields
+
+        switch task {
+        case .requestPlain:
+            return request
+        case let .requestJSONEncodable(encodable):
+            return try request.encode(encodable: encodable)
+        case let .requestParameters(parameters):
+            return try request.encode(parameters: parameters)
+        case let .requestCompositeParameters(body, query):
+            var bodyfulRequest = try request.encode(encodable: body)
+            return try bodyfulRequest.encode(parameters: query)
+        }
     }
 }

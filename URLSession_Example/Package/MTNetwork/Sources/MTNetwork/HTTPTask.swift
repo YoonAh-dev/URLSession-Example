@@ -19,7 +19,7 @@ public enum HTTPTask {
     case requestParameters(_ parameters: [String: Any])
 
     /// A requests body set with encoded parameters combined with url parameters.
-    case requestCompositeParameters(body: [String: Any], query: [String: Any])
+    case requestCompositeParameters(body: Encodable, query: [String: Any])
 
     /// A "multipart/form-data" upload task.
 //    case uploadMultipart([MultipartFormData])
