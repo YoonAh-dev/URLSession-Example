@@ -29,6 +29,8 @@
 		B572267D2A14669E0016B69C /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A32A03A43300F86A3B /* Image.swift */; };
 		B572267E2A1466A20016B69C /* CollectionRequestDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8A82A03E46500F86A3B /* CollectionRequestDTO.swift */; };
 		B572267F2A1466A60016B69C /* CollectionResponseDTO.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8AD2A03E81400F86A3B /* CollectionResponseDTO.swift */; };
+		B57226842A1467BE0016B69C /* HTTPMethod.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57226832A1467BE0016B69C /* HTTPMethod.swift */; };
+		B57226872A146D370016B69C /* EXError.swift in Sources */ = {isa = PBXBuildFile; fileRef = B57226862A146D370016B69C /* EXError.swift */; };
 		B572C86D2A02943800F86A3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86C2A02943800F86A3B /* AppDelegate.swift */; };
 		B572C86F2A02943800F86A3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86E2A02943800F86A3B /* SceneDelegate.swift */; };
 		B572C8712A02943800F86A3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8702A02943800F86A3B /* ViewController.swift */; };
@@ -108,6 +110,9 @@
 		B57226522A13CD010016B69C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		B57226572A13CD010016B69C /* EXNetworkTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = EXNetworkTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572265B2A13CD010016B69C /* EXNetworkTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXNetworkTests.swift; sourceTree = "<group>"; };
+		B57226832A1467BE0016B69C /* HTTPMethod.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPMethod.swift; sourceTree = "<group>"; };
+		B57226862A146D370016B69C /* EXError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EXError.swift; sourceTree = "<group>"; };
+		B572268B2A1476B70016B69C /* MTNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; name = MTNetwork; path = ../../../../Package/MTNetwork; sourceTree = "<group>"; };
 		B572C8692A02943800F86A3B /* URLSession_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLSession_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572C86C2A02943800F86A3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		B572C86E2A02943800F86A3B /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -223,6 +228,7 @@
 		B57226432A13CD000016B69C /* EXNetwork */ = {
 			isa = PBXGroup;
 			children = (
+				B57226812A1467A50016B69C /* EndPoint */,
 				B572267A2A1466740016B69C /* Foundation */,
 				B57226762A1464760016B69C /* Example */,
 			);
@@ -278,6 +284,8 @@
 		B572267A2A1466740016B69C /* Foundation */ = {
 			isa = PBXGroup;
 			children = (
+				B57226832A1467BE0016B69C /* HTTPMethod.swift */,
+				B57226862A146D370016B69C /* EXError.swift */,
 			);
 			path = Foundation;
 			sourceTree = "<group>";
@@ -300,12 +308,28 @@
 			path = Models;
 			sourceTree = "<group>";
 		};
+		B57226812A1467A50016B69C /* EndPoint */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = EndPoint;
+			sourceTree = "<group>";
+		};
+		B57226892A1475B10016B69C /* Package */ = {
+			isa = PBXGroup;
+			children = (
+				B572268B2A1476B70016B69C /* MTNetwork */,
+			);
+			path = Package;
+			sourceTree = "<group>";
+		};
 		B572C8602A02943800F86A3B = {
 			isa = PBXGroup;
 			children = (
+				B572267B2A14668C0016B69C /* Common */,
 				B572C86B2A02943800F86A3B /* URLSession_Example */,
 				B57226432A13CD000016B69C /* EXNetwork */,
-				B572267B2A14668C0016B69C /* Common */,
+				B57226892A1475B10016B69C /* Package */,
 				B572C8822A02943900F86A3B /* URLSession_ExampleTests */,
 				B572C88C2A02943900F86A3B /* URLSession_ExampleUITests */,
 				B572265A2A13CD010016B69C /* EXNetworkTests */,
@@ -599,10 +623,12 @@
 			files = (
 				B572267E2A1466A20016B69C /* CollectionRequestDTO.swift in Sources */,
 				B57226742A13D3FA0016B69C /* ViewController.swift in Sources */,
+				B57226842A1467BE0016B69C /* HTTPMethod.swift in Sources */,
 				B572267F2A1466A60016B69C /* CollectionResponseDTO.swift in Sources */,
 				B572267D2A14669E0016B69C /* Image.swift in Sources */,
 				B57226452A13CD000016B69C /* AppDelegate.swift in Sources */,
 				B57226472A13CD000016B69C /* SceneDelegate.swift in Sources */,
+				B57226872A146D370016B69C /* EXError.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
