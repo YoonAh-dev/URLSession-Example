@@ -31,7 +31,7 @@ public struct MultipartFormData {
 
     public init(
         provider: FormDataProvider,
-        name: String,
+        name: String = "",
         filename: String? = nil,
         mimeType: String? = nil
     ) {

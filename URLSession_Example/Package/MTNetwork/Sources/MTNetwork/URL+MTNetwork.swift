@@ -13,8 +13,7 @@ public extension URL {
         if path.isEmpty {
             self = request.baseURL
         } else {
-            let tag = request.baseURL.absoluteString.hasSuffix("/") ? "" : "/"
-            self = .init(string: request.baseURL.absoluteString + tag + path)!
+            self = .init(string: request.baseURL.absoluteString + path)!
         }
     }
 }

@@ -119,8 +119,13 @@ extension MultipartFormDataWrapper {
         let initialData = hasInitialBoundary ? self.initialBoundaryData() : self.encapsulatedBoundaryData()
         encoded.append(initialData)
 
-        for (key, value) in parameters {
-            let contentHeader = self.contentHeaders(withName: key)
+        for (index, (key, value)) in parameters.enumerated() {
+            if !index.isZero {
+                let encapsulatedData = self.encapsulatedBoundaryData()
+                encoded.append(encapsulatedData)
+            }
+
+            let contentHeader = self.parameterHeaders(withName: key)
             encoded.append(contentHeader)
 
             encoded.append("\(value)")
@@ -152,11 +157,20 @@ extension MultipartFormDataWrapper {
         if let fileName = filename {
             disposition += "; filename=\"\(fileName)\""
         }
-        encoded.append("Content-Disposition: \(disposition)")
+        encoded.append("Content-Disposition: \(disposition)\(EncodingCharacters.crlf)")
 
         if let mimeType = mimeType {
-            encoded.append("Content-Type: \(mimeType)")
+            encoded.append("Content-Type: \(mimeType)\(EncodingCharacters.crlf)\(EncodingCharacters.crlf)")
         }
+
+        return encoded
+    }
+
+    private func parameterHeaders(withName name: String) -> Data {
+        var encoded = Data()
+
+        let disposition = "form-data; name=\"\(name)\""
+        encoded.append("Content-Disposition: \(disposition)\(EncodingCharacters.crlf)\(EncodingCharacters.crlf)")
 
         return encoded
     }
@@ -167,5 +181,11 @@ fileprivate extension Data {
         if let data = string.data(using: .utf8) {
             self.append(data)
         }
+    }
+}
+
+fileprivate extension Int {
+    var isZero: Bool {
+        return self == 0
     }
 }
