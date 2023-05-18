@@ -5,7 +5,7 @@
 ## User settings
 xcuserdata/
 .DS_Store
-URLSession_Example/URLSession_Example/Supports/Keys.plist
+URLSession_Example/URLSession_Example/Network/Foundation/Key/Keys.plist
 
 ## compatibility with Xcode 8 and earlier (ignoring not required starting Xcode 9)
 *.xcscmblueprint

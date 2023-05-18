@@ -46,15 +46,17 @@ extension CollectionRequest: Requestable {
         }
     }
 
-    var headers: [String : String] {
+    var headers: MTNetwork.HTTPHeaders {
         switch self {
         case .fetchCollections:
-            return ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
+            let token = "\(KeyProvider.appKey(of: .clientId))"
+            let authorization = HTTPHeader.authorization(token)
+            return HTTPHeaders([authorization])
         case .uploadCollection:
-            return [
-                "Authorization": "\(KeyProvider.appKey(of: .accessToken))",
-                "Content-Type": "application/json"
-            ]
+            let token = "\(KeyProvider.appKey(of: .accessToken))"
+            let authorization = HTTPHeader.authorization(bearerToken: token)
+            let contentType = HTTPHeader.contentType("application/json")
+            return HTTPHeaders([authorization, contentType])
         }
     }
 

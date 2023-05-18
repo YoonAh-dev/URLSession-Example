@@ -21,8 +21,8 @@ public protocol Requestable {
     /// The type of HTTP task to be performed.
     var task: HTTPTask { get }
 
-    /// The headers to be used in the request. Default is `[:]`
-    var headers: [String: String] { get }
+    /// The headers to be used in the request.
+    var headers: HTTPHeaders { get }
 
     /// The timeout interval of the request. Default is `60.0`
     var requestTimeout: Float { get }
@@ -32,7 +32,6 @@ public protocol Requestable {
 }
 
 extension Requestable {
-    var headers: [String: String] { [:] }
     var requestTimeout: Float { 60.0 }
     var sampleData: Data? { Data() }
 }

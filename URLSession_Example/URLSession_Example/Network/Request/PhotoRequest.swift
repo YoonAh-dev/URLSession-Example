@@ -40,10 +40,12 @@ extension PhotoRequest: Requestable {
         }
     }
 
-    var headers: [String : String] {
+    var headers: MTNetwork.HTTPHeaders {
         switch self {
         case .fetchImages:
-            return ["Authorization": "\(KeyProvider.appKey(of: .clientId))"]
+            let token = "\(KeyProvider.appKey(of: .clientId))"
+            let authorization = HTTPHeader.authorization(token)
+            return HTTPHeaders([authorization])
         }
     }
 

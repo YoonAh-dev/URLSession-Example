@@ -16,7 +16,7 @@ public struct HTTPHeaders {
     public init(_ headers: [HTTPHeader]) {
         self.init()
 
-        self.headers.forEach { self.update($0) }
+        headers.forEach { self.update($0) }
     }
 
     /// Case-insensitively updates or appends the provided `HTTPHeader` into the instance.

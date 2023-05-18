@@ -19,13 +19,13 @@ public struct EndPoint {
     let task: HTTPTask
 
     /// The HTTP header fields for the request.
-    let httpHeaderFields: [String: String]?
+    let httpHeaderFields: HTTPHeaders?
 
     public init(
         url: String,
         method: HTTPMethod,
         task: HTTPTask,
-        httpHeaderFields: [String : String]?
+        httpHeaderFields: HTTPHeaders?
     ) {
         self.url = url
         self.method = method
@@ -45,7 +45,7 @@ public extension EndPoint {
 
         var request = URLRequest(url: url)
         request.httpMethod = self.method.rawValue
-        request.allHTTPHeaderFields = self.httpHeaderFields
+        request.allHTTPHeaderFields = self.httpHeaderFields?.dictionary
 
         switch task {
         case .requestPlain:
