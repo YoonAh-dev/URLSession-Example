@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct Image: Codable {
+struct Image: Decodable {
     let id: String?
     let createdAt, updatedAt: String?
     let promotedAt: String?
@@ -41,7 +41,7 @@ struct Image: Codable {
     }
 }
 
-struct ImageLinks: Codable {
+struct ImageLinks: Decodable {
     let linksSelf, html, download, downloadLocation: String?
 
     enum CodingKeys: String, CodingKey {
@@ -51,7 +51,7 @@ struct ImageLinks: Codable {
     }
 }
 
-struct Sponsorship: Codable {
+struct Sponsorship: Decodable {
     let impressionUrls: [String]?
     let tagline: String?
     let taglineURL: String?
@@ -65,7 +65,7 @@ struct Sponsorship: Codable {
     }
 }
 
-struct User: Codable {
+struct User: Decodable {
     let id: String?
     let updatedAt: String?
     let username, name, firstName: String?
@@ -99,7 +99,7 @@ struct User: Codable {
     }
 }
 
-struct UserLinks: Codable {
+struct UserLinks: Decodable {
     let linksSelf, html, photos, likes: String?
     let portfolio, following, followers: String?
 
@@ -109,11 +109,11 @@ struct UserLinks: Codable {
     }
 }
 
-struct ProfileImage: Codable {
+struct ProfileImage: Decodable {
     let small, medium, large: String?
 }
 
-struct Social: Codable {
+struct Social: Decodable {
     let instagramUsername: String?
     let portfolioURL: String?
     let twitterUsername: String?
@@ -127,11 +127,11 @@ struct Social: Codable {
     }
 }
 
-struct TopicSubmissions: Codable {
+struct TopicSubmissions: Decodable {
 
 }
 
-struct Urls: Codable {
+struct Urls: Decodable {
     let raw, full, regular, small: String?
     let thumb, smallS3: String?
 

@@ -11,7 +11,7 @@ import MTNetwork
 
 enum CollectionRequest {
     case fetchCollections
-    case uploadCollection(collection: CollectionRequestDTO)
+    case uploadCollection(collection: Collection)
 }
 
 extension CollectionRequest: Requestable {

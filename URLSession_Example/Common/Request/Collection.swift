@@ -1,5 +1,5 @@
 //
-//  CollectionRequestDTO.swift
+//  Collection.swift
 //  URLSession_Example
 //
 //  Created by SHIN YOON AH on 2023/05/04.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollectionRequestDTO: Encodable {
+struct Collection: Encodable {
     let title: String
     let description: String?
     let `private`: String

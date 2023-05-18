@@ -1,5 +1,5 @@
 //
-//  CollectionResponseDTO.swift
+//  CollectionResponse.swift
 //  URLSession_Example
 //
 //  Created by SHIN YOON AH on 2023/05/04.
@@ -7,7 +7,7 @@
 
 import Foundation
 
-struct CollectionResponseDTO: Codable {
+struct CollectionResponse: Decodable {
     let id, title, description: String?
     let publishedAt: String?
     let lastCollectedAt: String?
@@ -37,7 +37,7 @@ struct CollectionResponseDTO: Codable {
     }
 }
 
-struct CoverPhotoLinks: Codable {
+struct CoverPhotoLinks: Decodable {
     let linksSelf, html, download, downloadLocation, photos: String?
 
     enum CodingKeys: String, CodingKey {
@@ -48,7 +48,7 @@ struct CoverPhotoLinks: Codable {
     }
 }
 
-struct CollectionDTOCoverPhoto: Codable {
+struct CollectionDTOCoverPhoto: Decodable {
     let id: String?
     let createdAt, updatedAt: String?
     let promotedAt: String?
@@ -84,7 +84,7 @@ struct CollectionDTOCoverPhoto: Codable {
     }
 }
 
-struct PurpleTopicSubmissions: Codable {
+struct PurpleTopicSubmissions: Decodable {
     let artsCulture, businessWork, architectureInterior, interiors: ArchitectureInterior?
 
     enum CodingKeys: String, CodingKey {
@@ -95,7 +95,7 @@ struct PurpleTopicSubmissions: Codable {
     }
 }
 
-struct ArchitectureInterior: Codable {
+struct ArchitectureInterior: Decodable {
     let status: String?
     let approvedOn: String?
 
@@ -105,7 +105,7 @@ struct ArchitectureInterior: Codable {
     }
 }
 
-struct CollectionDTOLinks: Codable {
+struct CollectionDTOLinks: Decodable {
     let linksSelf, html, photos, related: String?
 
     enum CodingKeys: String, CodingKey {
@@ -114,7 +114,7 @@ struct CollectionDTOLinks: Codable {
     }
 }
 
-struct PreviewPhoto: Codable {
+struct PreviewPhoto: Decodable {
     let id, slug: String?
     let createdAt, updatedAt: String?
     let blurHash: String?
@@ -129,13 +129,13 @@ struct PreviewPhoto: Codable {
     }
 }
 
-struct Tag: Codable {
+struct Tag: Decodable {
     let type: String?
     let title: String?
     let source: Source?
 }
 
-struct Source: Codable {
+struct Source: Decodable {
     let ancestry: Ancestry?
     let title, subtitle, description, metaTitle: String?
     let metaDescription: String?
@@ -149,12 +149,12 @@ struct Source: Codable {
     }
 }
 
-struct Ancestry: Codable {
+struct Ancestry: Decodable {
     let type: Category?
     let category, subcategory: Category?
 }
 
-struct Category: Codable {
+struct Category: Decodable {
     let slug, prettySlug: String?
 
     enum CodingKeys: String, CodingKey {
@@ -163,7 +163,7 @@ struct Category: Codable {
     }
 }
 
-struct SourceCoverPhoto: Codable {
+struct SourceCoverPhoto: Decodable {
     let id: String?
     let createdAt, updatedAt: String?
     let promotedAt: String?
@@ -198,7 +198,7 @@ struct SourceCoverPhoto: Codable {
     }
 }
 
-struct FluffyTopicSubmissions: Codable {
+struct FluffyTopicSubmissions: Decodable {
     let health, athletics, people, nature: ArchitectureInterior?
     let wallpapers, architectureInterior, colorOfWater, texturesPatterns: ArchitectureInterior?
     let currentEvents, spirituality, artsCulture: ArchitectureInterior?

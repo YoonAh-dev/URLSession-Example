@@ -11,7 +11,7 @@ import MTNetwork
 
 protocol CollectionAPIProtocol {
     mutating func fetchCollections() async throws -> Response
-    mutating func uploadCollection(collection: CollectionRequestDTO) async throws -> Response
+    mutating func uploadCollection(collection: Collection) async throws -> Response
 }
 
 struct CollectionAPI: CollectionAPIProtocol {
@@ -22,7 +22,7 @@ struct CollectionAPI: CollectionAPIProtocol {
         return try await self.provider.request(.fetchCollections)
     }
 
-    mutating func uploadCollection(collection: CollectionRequestDTO) async throws -> Response {
+    mutating func uploadCollection(collection: Collection) async throws -> Response {
         return try await self.provider.request(.uploadCollection(collection: collection))
     }
 }
