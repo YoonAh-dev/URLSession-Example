@@ -57,6 +57,10 @@ public extension EndPoint {
         case let .requestCompositeParameters(body, query):
             var bodyfulRequest = try request.encode(encodable: body)
             return try bodyfulRequest.encode(parameters: query)
+        case .uploadMultipart:
+            return request
+        case let .uploadCompositeMultipart(_, query):
+            return try request.encode(parameters: query)
         }
     }
 }

@@ -22,8 +22,8 @@ public enum HTTPTask {
     case requestCompositeParameters(body: Encodable, query: [String: Any])
 
     /// A "multipart/form-data" upload task.
-//    case uploadMultipart([MultipartFormData])
+    case uploadMultipart([MultipartFormData])
 
     /// A "multipart/form-data" upload task  combined with url parameters.
-//    case uploadCompositeMultipart([MultipartFormData], query: [String: Any])
+    case uploadCompositeMultipart([MultipartFormData], query: [String: Any])
 }
