@@ -68,44 +68,28 @@ final class ViewController: UIViewController {
 
     private func fetchImages() {
         Task {
-            do {
-                let response = try await PhotoAPI().fetchImages(perPage: 3, orderBy: "popular")
-
-                if let data = response.data {
-                    DispatchQueue.main.async {
-                        self.imageURLs = data.compactMap { $0.urls?.regular }
-                    }
-                } else {
-                    self.handleError("데이터가 들어오지 않았습니다.")
+            let result = await PhotoAPI().fetchImages(perPage: 3, orderBy: "popular")
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.imageURLs = data.compactMap { $0.urls?.regular }
                 }
-            } catch NetworkError.decodingError {
-                self.handleError("데이터 디코딩에 실패했습니다.")
-            } catch NetworkError.clientError(let message) {
-                self.handleError(message ?? "")
-            } catch NetworkError.serverError {
-                self.handleError("서버에 문제가 발생하였습니다.")
+            case .failure(let error):
+                self.handleError(error.localizedDescription)
             }
         }
     }
 
     private func fetchCollections() {
         Task {
-            do {
-                let response = try await CollectionAPI().fetchCollections()
-
-                if let data = response.data {
-                    DispatchQueue.main.async {
-                        self.collections = data.map { $0.title ?? "" }
-                    }
-                } else {
-                    self.handleError("데이터가 들어오지 않았습니다.")
+            let result = await CollectionAPI().fetchCollections()
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    self.collections = data.map { $0.title ?? "" }
                 }
-            } catch NetworkError.decodingError {
-                self.handleError("데이터 디코딩에 실패했습니다.")
-            } catch NetworkError.clientError(let message) {
-                self.handleError(message ?? "")
-            } catch NetworkError.serverError {
-                self.handleError("서버에 문제가 발생하였습니다.")
+            case .failure(let error):
+                self.handleError(error.localizedDescription)
             }
         }
     }

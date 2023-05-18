@@ -36,25 +36,17 @@ final class CollectionViewController: UIViewController {
 
     // MARK: - network
 
-    private func uploadCollection(_ collection: CollectionRequestDTO) {
+    private func uploadCollection(_ collection: Collection) {
         Task {
-            do {
-                let response = try await CollectionAPI().uploadCollection(collection: collection)
-
-                if let data = response.data {
-                    DispatchQueue.main.async {
-                        dump(data)
-                        self.dismiss(animated: true)
-                    }
-                } else {
-                    self.handleError("데이터가 들어오지 않았습니다.")
+            let result = await CollectionAPI().uploadCollection(collection: collection)
+            switch result {
+            case .success(let data):
+                DispatchQueue.main.async {
+                    dump(data)
+                    self.dismiss(animated: true)
                 }
-            } catch NetworkError.decodingError {
-                self.handleError("데이터 디코딩에 실패했습니다.")
-            } catch NetworkError.clientError(let message) {
-                self.handleError(message ?? "")
-            } catch NetworkError.serverError {
-                self.handleError("서버에 문제가 발생하였습니다.")
+            case .failure(let error):
+                self.handleError(error.localizedDescription)
             }
         }
     }
@@ -66,7 +58,7 @@ final class CollectionViewController: UIViewController {
     }
 
     @IBAction func didTapCreateCollectionButton(_ sender: Any) {
-        var collection: CollectionRequestDTO
+        var collection: Collection
 
         guard let title = self.titleTextField.text, title != "" else {
             self.handleError(CollectionError.requiredFieldNotEntered.errorDescription ?? "")
@@ -76,9 +68,9 @@ final class CollectionViewController: UIViewController {
         let isPublic = self.privateSegmentControl.selectedSegmentIndex == 0 ? true : false
 
         if let description = self.descriptionTextField.text, description != "" {
-            collection = CollectionRequestDTO(title: title, description: description, private: isPublic)
+            collection = Collection(title: title, description: description, private: isPublic)
         } else {
-            collection = CollectionRequestDTO(title: title, private: isPublic)
+            collection = Collection(title: title, private: isPublic)
         }
 
         self.uploadCollection(collection)
