@@ -25,7 +25,7 @@ struct BaseURL {
 
     // MARK: - property
 
-    let baseURL: String
+    let `default`: URL
 
     // MARK: - init
 
@@ -35,9 +35,9 @@ struct BaseURL {
         version: Version = .none
     ) {
         if let path = version.path {
-            self.baseURL = scheme + host + path
+            self.default = URL(string: scheme + host + path)!
         } else {
-            self.baseURL = scheme + host
+            self.default = URL(string: scheme + host)!
         }
     }
 

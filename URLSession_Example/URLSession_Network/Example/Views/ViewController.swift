@@ -12,7 +12,14 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         // Do any additional setup after loading the view.
-        view.backgroundColor = .blue
+        Task {
+            do {
+                let data = try await CollectionService().fetchCollections()
+                dump(data)
+            } catch let error {
+                print(error)
+            }
+        }
     }
 
 

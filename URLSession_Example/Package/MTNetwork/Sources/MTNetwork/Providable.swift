@@ -8,5 +8,6 @@
 import Foundation
 
 public protocol Providable {
-    mutating func request(_ request: Requestable) async throws -> Response
+    associatedtype T: Requestable
+    mutating func request(_ request: T) async throws -> Response
 }

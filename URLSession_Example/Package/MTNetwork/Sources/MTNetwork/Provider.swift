@@ -7,9 +7,11 @@
 
 import Foundation
 
-public struct Provider: Providable {
+public struct Provider<T: Requestable>: Providable {
 
-    public mutating func request(_ request: Requestable) async throws -> Response {
+    public init() { }
+
+    public mutating func request(_ request: T) async throws -> Response {
         let endpoint = self.endpoint(request)
         let urlRequest = try endpoint.urlRequest()
         let session = self.defaultSession(timeout: request.requestTimeout)
