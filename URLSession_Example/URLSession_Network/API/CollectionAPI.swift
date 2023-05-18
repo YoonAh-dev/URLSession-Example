@@ -10,19 +10,31 @@ import Foundation
 import MTNetwork
 
 protocol CollectionAPIProtocol {
-    mutating func fetchCollections() async throws -> Response
-    mutating func uploadCollection(collection: Collection) async throws -> Response
+    func fetchCollections() async -> Result<[CollectionResponse], Error>
+    func uploadCollection(collection: Collection) async -> Result<[CollectionResponse], Error>
 }
 
-struct CollectionAPI: CollectionAPIProtocol {
+final class CollectionAPI: CollectionAPIProtocol {
 
     private var provider = Provider<CollectionRequest>()
 
-    mutating func fetchCollections() async throws -> Response {
-        return try await self.provider.request(.fetchCollections)
+    func fetchCollections() async -> Result<[CollectionResponse], Error> {
+        do {
+            let response = try await self.provider.request(.fetchCollections)
+            let decodingResponse: [CollectionResponse] = try response.decode()
+            return .success(decodingResponse)
+        } catch {
+            return .failure(error)
+        }
     }
 
-    mutating func uploadCollection(collection: Collection) async throws -> Response {
-        return try await self.provider.request(.uploadCollection(collection: collection))
+    func uploadCollection(collection: Collection) async -> Result<[CollectionResponse], Error> {
+        do {
+            let response = try await self.provider.request(.uploadCollection(collection: collection))
+            let decodingResponse: [CollectionResponse] = try response.decode()
+            return .success(decodingResponse)
+        } catch {
+            return .failure(error)
+        }
     }
 }

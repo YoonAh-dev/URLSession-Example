@@ -10,19 +10,25 @@ import Foundation
 import MTNetwork
 
 protocol PhotoAPIProtocol {
-    mutating func fetchImages(perPage: Int, orderBy: String) async throws -> Response
+    func fetchImages(perPage: Int, orderBy: String) async -> Result<[Image], Error>
 }
 
-struct PhotoAPI: PhotoAPIProtocol {
+final class PhotoAPI: PhotoAPIProtocol {
 
     private var provider = Provider<PhotoRequest>()
 
-    mutating func fetchImages(perPage: Int, orderBy: String) async throws -> Response {
-        let queryParameter = [
-            "per_page": perPage.description,
-            "order_by": orderBy
-        ]
+    func fetchImages(perPage: Int, orderBy: String) async -> Result<[Image], Error> {
+        do {
+            let queryParameter = [
+                "per_page": perPage.description,
+                "order_by": orderBy
+            ]
+            let response = try await self.provider.request(.fetchImages(query: queryParameter))
+            let decodingResponse: [Image] = try response.decode()
 
-        return try await self.provider.request(.fetchImages(query: queryParameter))
+            return .success(decodingResponse)
+        } catch {
+            return .failure(error)
+        }
     }
 }

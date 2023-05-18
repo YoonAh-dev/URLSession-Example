@@ -11,13 +11,14 @@ class ViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view.
         Task {
-            do {
-                let data = try await CollectionService().fetchCollections()
+            let result = await CollectionAPI().fetchCollections()
+            switch result {
+            case .success(let data):
                 dump(data)
-            } catch let error {
-                print(error)
+            case .failure(let error):
+                print(error.localizedDescription)
+                dump(error)
             }
         }
     }
