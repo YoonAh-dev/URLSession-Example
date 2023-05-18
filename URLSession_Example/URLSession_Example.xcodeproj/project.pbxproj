@@ -180,7 +180,6 @@
 		B572C8602A02943800F86A3B = {
 			isa = PBXGroup;
 			children = (
-				B572267B2A14668C0016B69C /* Common */,
 				B572C86B2A02943800F86A3B /* URLSession_Example */,
 				B57226892A1475B10016B69C /* Package */,
 				B572C8822A02943900F86A3B /* URLSession_ExampleTests */,
@@ -202,6 +201,7 @@
 		B572C86B2A02943800F86A3B /* URLSession_Example */ = {
 			isa = PBXGroup;
 			children = (
+				B572267B2A14668C0016B69C /* Common */,
 				B54A955A2A15B77A000EFD01 /* Network */,
 				B572C89D2A03842000F86A3B /* View */,
 				B572C8AA2A03E58D00F86A3B /* Utils */,
