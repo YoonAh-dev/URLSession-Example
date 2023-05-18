@@ -10,13 +10,13 @@ import Foundation
 public struct Response {
 
     /// The status code of the response.
-    let statusCode: Int
+    public let statusCode: Int
 
     /// The HTTPURLResponse object.
-    let response: HTTPURLResponse?
+    public let response: HTTPURLResponse?
 
     /// The response data.
-    let data: Data
+    public let data: Data
 
     /// A text description of the `Response`.
     public var description: String {
