@@ -14,7 +14,8 @@ class ViewController: UIViewController {
         // Do any additional setup after loading the view.
         Task {
             do {
-                let data = try await CollectionService().fetchCollections()
+                let collection = CollectionRequestDTO(title: "새로운 카테고리!!", private: true)
+                let data = try await CollectionService().uploadCollection(collection: collection)
                 dump(data)
             } catch let error {
                 print(error)

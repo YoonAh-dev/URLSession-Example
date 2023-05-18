@@ -10,7 +10,8 @@ import Foundation
 import MTNetwork
 
 protocol CollectionServiceProtocol {
-    mutating func fetchCollections() async throws -> [CollectionResponseDTO]?
+    func fetchCollections() async throws -> [CollectionResponseDTO]?
+    func uploadCollection(collection: CollectionRequestDTO) async throws -> [CollectionResponseDTO]?
 }
 
 final class CollectionService: CollectionServiceProtocol {
@@ -19,6 +20,11 @@ final class CollectionService: CollectionServiceProtocol {
 
     func fetchCollections() async throws -> [CollectionResponseDTO]? {
         let response = try await self.collectionAPI.fetchCollections()
+        return try response.decode()
+    }
+
+    func uploadCollection(collection: CollectionRequestDTO) async throws -> [CollectionResponseDTO]? {
+        let response = try await self.collectionAPI.uploadCollection(collection: collection)
         return try response.decode()
     }
 }
