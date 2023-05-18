@@ -82,10 +82,15 @@ extension MultipartFormDataWrapper {
         for body in self.bodyPart {
             switch body.provider {
             case .data(let data):
-                let data = self.append(data: data, name: body.name, hasInitialBoundary: body.hasInitialBoundary)
+                let data = self.append(data: data,
+                                       name: body.name,
+                                       filename: body.filename,
+                                       mimeType: body.mimeType,
+                                       hasInitialBoundary: body.hasInitialBoundary)
                 encoded.append(data)
             case .parameter(let parameters):
-                let data = self.append(parameters: parameters, hasInitialBoundary: body.hasInitialBoundary)
+                let data = self.append(parameters: parameters,
+                                       hasInitialBoundary: body.hasInitialBoundary)
                 encoded.append(data)
             }
         }
@@ -154,8 +159,12 @@ extension MultipartFormDataWrapper {
         var encoded = Data()
 
         var disposition = "form-data; name=\"\(name)\""
-        if let fileName = filename {
-            disposition += "; filename=\"\(fileName)\""
+        if let fileName = filename, let mimeType = mimeType {
+            if let type = mimeType.split(separator: "/").last.map({ String($0) }) {
+                disposition += "; filename=\"\(fileName).\(type)\""
+            } else {
+                disposition += "; filename=\"\(fileName)\""
+            }
         }
         encoded.append("Content-Disposition: \(disposition)\(EncodingCharacters.crlf)")
 
