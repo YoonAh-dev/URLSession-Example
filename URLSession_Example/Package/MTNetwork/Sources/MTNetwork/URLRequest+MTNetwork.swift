@@ -47,6 +47,18 @@ public extension URLRequest {
     }
 
     mutating func encode(data: [MultipartFormData]) throws -> URLRequest {
-        
+        do {
+            let multipartformWrapper = MultipartFormDataWrapper(data: data)
+            let body = try multipartformWrapper.encode()
+            self.httpBody = body
+
+            let contentTypeHeaderField = "Content-Type"
+            let contentTypeHeaderValue = multipartformWrapper.contentType
+            self.setValue(contentTypeHeaderValue, forHTTPHeaderField: contentTypeHeaderField)
+
+            return self
+        } catch {
+            throw MTError.multipartEncodingFailed(reason: .dataEncodingFailure)
+        }
     }
 }

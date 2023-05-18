@@ -16,6 +16,7 @@
 		B54A95742A15BA71000EFD01 /* PhotoAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592D20E2A1520ED00B5C2EC /* PhotoAPI.swift */; };
 		B54A95752A15BA71000EFD01 /* CollectionRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B592D2092A151FF800B5C2EC /* CollectionRequest.swift */; };
 		B54A957D2A15BCBD000EFD01 /* MTNetwork in Frameworks */ = {isa = PBXBuildFile; productRef = B54A957C2A15BCBD000EFD01 /* MTNetwork */; };
+		B54A957F2A161E93000EFD01 /* MultipartRequest.swift in Sources */ = {isa = PBXBuildFile; fileRef = B54A957E2A161E93000EFD01 /* MultipartRequest.swift */; };
 		B572C86D2A02943800F86A3B /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86C2A02943800F86A3B /* AppDelegate.swift */; };
 		B572C86F2A02943800F86A3B /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C86E2A02943800F86A3B /* SceneDelegate.swift */; };
 		B572C8712A02943800F86A3B /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = B572C8702A02943800F86A3B /* ViewController.swift */; };
@@ -85,6 +86,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		B54A957E2A161E93000EFD01 /* MultipartRequest.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipartRequest.swift; sourceTree = "<group>"; };
 		B572268C2A14830C0016B69C /* MTNetwork */ = {isa = PBXFileReference; lastKnownFileType = wrapper; path = MTNetwork; sourceTree = "<group>"; };
 		B572C8692A02943800F86A3B /* URLSession_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = URLSession_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		B572C86C2A02943800F86A3B /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -279,6 +281,7 @@
 			children = (
 				B5A70D902A151717008A05F2 /* PhotoRequest.swift */,
 				B592D2092A151FF800B5C2EC /* CollectionRequest.swift */,
+				B54A957E2A161E93000EFD01 /* MultipartRequest.swift */,
 			);
 			path = Request;
 			sourceTree = "<group>";
@@ -470,6 +473,7 @@
 				B54A95742A15BA71000EFD01 /* PhotoAPI.swift in Sources */,
 				B572C86F2A02943800F86A3B /* SceneDelegate.swift in Sources */,
 				B54A956F2A15BA62000EFD01 /* APIEnvironment.swift in Sources */,
+				B54A957F2A161E93000EFD01 /* MultipartRequest.swift in Sources */,
 				B572C8A92A03E46500F86A3B /* Collection.swift in Sources */,
 				B572C8A42A03A43300F86A3B /* Image.swift in Sources */,
 				B54A95732A15BA71000EFD01 /* PhotoRequest.swift in Sources */,

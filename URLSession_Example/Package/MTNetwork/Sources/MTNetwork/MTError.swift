@@ -26,6 +26,7 @@ public enum MTError: Error {
     /// The underlying reason the `.multipartEncodingFailed` error occurred.
     public enum MultipartEncodingFailureReason {
         case invalidData
+        case dataEncodingFailure
     }
 
     /// The underlying reason the `.parameterEncodingFailed` error occurred.
@@ -65,6 +66,8 @@ extension MTError.MultipartEncodingFailureReason: LocalizedError {
         switch self {
         case .invalidData:
             return "⛔️ 유효하지 않은 데이터입니다."
+        case .dataEncodingFailure:
+            return "⛔️ response를 decode할 수 없습니다."
         }
     }
 }

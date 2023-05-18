@@ -53,7 +53,7 @@ open class MultipartFormDataWrapper {
 }
 
 extension MultipartFormDataWrapper {
-    func encqode() throws -> Data {
+    func encode() throws -> Data {
         var encoded = Data()
 
         let data = try self.applyMultipartFormData()
