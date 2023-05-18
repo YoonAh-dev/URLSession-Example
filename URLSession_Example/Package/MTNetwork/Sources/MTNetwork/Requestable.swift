@@ -22,7 +22,7 @@ public protocol Requestable {
     var task: HTTPTask { get }
 
     /// The headers to be used in the request.
-    var headers: HTTPHeaders { get }
+    var headers: [String: String] { get }
 
     /// The timeout interval of the request. Default is `60.0`
     var requestTimeout: Float { get }
