@@ -13,7 +13,7 @@ public extension URL {
         if path.isEmpty {
             self = request.baseURL
         } else {
-            self = .init(string: request.baseURL.absoluteString + path)!
+            self = URL(string: request.baseURL.absoluteString + path)!
         }
     }
 }
