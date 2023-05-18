@@ -65,9 +65,9 @@
          runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "B5A70D532A14D6D8008A05F2"
-            BuildableName = "URLSession_Network.app"
-            BlueprintName = "URLSession_Network"
+            BlueprintIdentifier = "B572C8682A02943800F86A3B"
+            BuildableName = "URLSession_Example.app"
+            BlueprintName = "URLSession_Example"
             ReferencedContainer = "container:../../URLSession_Example.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -11,19 +11,23 @@ public struct MultipartFormData {
 
     public enum FormDataProvider {
         case data(Data)
+        case parameter([String: Any])
     }
 
     /// The method being used for providing form data.
-    public let provider: FormDataProvider
+    let provider: FormDataProvider
 
     /// The name.
-    public let name: String
+    let name: String
 
     /// The file name.
-    public let filename: String?
+    let filename: String?
 
     /// The MIME type
-    public let mimeType: String?
+    let mimeType: String?
+
+    /// Verify that this is the first data.
+    var hasInitialBoundary: Bool
 
     public init(
         provider: FormDataProvider,
@@ -35,5 +39,6 @@ public struct MultipartFormData {
         self.name = name
         self.filename = filename
         self.mimeType = mimeType
+        self.hasInitialBoundary = false
     }
 }

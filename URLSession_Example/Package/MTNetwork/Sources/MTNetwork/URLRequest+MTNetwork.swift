@@ -45,4 +45,8 @@ public extension URLRequest {
             return self
         }
     }
+
+    mutating func encode(data: [MultipartFormData]) throws -> URLRequest {
+        
+    }
 }
