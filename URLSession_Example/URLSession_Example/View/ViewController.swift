@@ -63,12 +63,12 @@ final class ViewController: UIViewController {
 
     private func startLoad() {
         self.fetchImages()
-//        self.fetchCollections()
+        self.fetchCollections()
     }
 
     private func fetchImages() {
         Task {
-            let result = await PhotoAPI().fetchImages(perPage: 3, orderBy: "popular")
+            let result = await PhotoAPI().fetchImages(perPage: 5, orderBy: "popular")
             switch result {
             case .success(let data):
                 DispatchQueue.main.async {

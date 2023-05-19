@@ -37,7 +37,7 @@ public extension URLRequest {
 
         if var urlComponents = URLComponents(url: url, resolvingAgainstBaseURL: false), !parameters.isEmpty {
             let queryItems: [URLQueryItem] = parameters.compactMap { URLQueryItem(name: $0, value: "\($1)") }
-            urlComponents.queryItems?.append(contentsOf: queryItems)
+            urlComponents.queryItems = queryItems
             self.url = urlComponents.url!
 
             return self

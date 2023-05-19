@@ -12,7 +12,6 @@ public struct Provider<T: Requestable>: Providable {
     public init() { }
 
     public mutating func request(_ request: T) async throws -> Response {
-
         let endpoint = self.endpoint(request)
         let urlRequest = try endpoint.urlRequest()
 
