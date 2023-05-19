@@ -24,7 +24,12 @@ extension NetworkLogger {
     }
 
     public func didReceive(_ result: Result<Response, MTError>, _ request: Requestable) {
-
+        switch result {
+        case .success(let success):
+            self.configuration.output(request, self.logNetworkResponse(success, request))
+        case .failure(let failure):
+            break
+        }
     }
 }
 
@@ -60,6 +65,22 @@ private extension NetworkLogger {
         }
 
         completion(output)
+    }
+
+    func logNetworkResponse(_ response: Response, _ request: Requestable) -> [String] {
+        var output: [String] = []
+
+        if let httpResponse = response.response {
+            output.append(self.configuration.formatter.entry("Response", httpResponse.description, request))
+        } else {
+            output.append(self.configuration.formatter.entry("Response", "Received empty network response for \(request).", request))
+        }
+
+        let responseBody = response.data
+        let body = self.configuration.formatter.responseData(responseBody)
+        output.append(self.configuration.formatter.entry("Response Body", body, request))
+
+        return output
     }
 
     // MARK: - Private - MultipartFormData Body

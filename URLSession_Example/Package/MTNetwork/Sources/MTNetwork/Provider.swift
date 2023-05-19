@@ -28,15 +28,25 @@ public struct Provider<T: Requestable>: Providable {
 
         switch httpResponse.statusCode {
         case (200..<300):
-            return self.response(data, response: httpResponse)
+            let response = self.response(data, response: httpResponse)
+            self.didReceive(.success(response), request)
+            return response
         case (300..<400):
-            throw MTError.statusCode(reason: .noRedirect)
+            let error = MTError.statusCode(reason: .noRedirect)
+            self.didReceive(.failure(error), request)
+            throw error
         case (400..<500):
-            throw MTError.statusCode(reason: .clientError)
+            let error = MTError.statusCode(reason: .clientError)
+            self.didReceive(.failure(error), request)
+            throw error
         case (500..<600):
-            throw MTError.statusCode(reason: .serverError)
+            let error = MTError.statusCode(reason: .serverError)
+            self.didReceive(.failure(error), request)
+            throw error
         default:
-            throw MTError.statusCode(reason: .invalidStatus)
+            let error = MTError.statusCode(reason: .invalidStatus)
+            self.didReceive(.failure(error), request)
+            throw error
         }
     }
 }
@@ -71,5 +81,14 @@ extension Provider {
 
     private func willSend(_ urlRequest: URLRequest, _ request: Requestable) {
         NetworkLogger().willSend(urlRequest, request)
+    }
+
+    private func didReceive(_ result: Result<Response, MTError>, _ request: Requestable) {
+        switch result {
+        case .success(let success):
+            NetworkLogger().didReceive(.success(success), request)
+        case .failure(let failure):
+            NetworkLogger().didReceive(.failure(failure), request)
+        }
     }
 }
