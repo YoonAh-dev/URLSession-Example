@@ -9,14 +9,15 @@ import Foundation
 
 public struct Provider<T: Requestable>: Providable {
 
+    ///  measure Network Time
     private var requestStartTime: Date?
 
     public init() {
         self.requestStartTime = nil
     }
 
-    public mutating func request(_ request: T) async throws -> Response {
-        self.requestStartTime = Date()
+    public mutating func request(_ request: T, didMeasureTime: Bool = false) async throws -> Response {
+        self.requestStartTime = didMeasureTime ? Date() : nil
 
         let endpoint = self.endpoint(request)
         let urlRequest = try endpoint.urlRequest()

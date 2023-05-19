@@ -9,5 +9,5 @@ import Foundation
 
 public protocol Providable {
     associatedtype T: Requestable
-    mutating func request(_ request: T) async throws -> Response
+    mutating func request(_ request: T, didMeasureTime: Bool) async throws -> Response
 }

@@ -23,7 +23,7 @@ final class PhotoAPI: PhotoAPIProtocol {
                 "per_page": perPage.description,
                 "order_by": orderBy
             ]
-            let response = try await self.provider.request(.fetchImages(query: queryParameter))
+            let response = try await self.provider.request(.fetchImages(query: queryParameter), didMeasureTime: true)
             let decodingResponse: [Image] = try response.decode()
 
             return .success(decodingResponse)
