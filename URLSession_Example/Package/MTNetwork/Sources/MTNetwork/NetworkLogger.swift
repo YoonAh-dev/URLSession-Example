@@ -36,6 +36,10 @@ extension NetworkLogger {
         let time = self.configuration.formatter.entry("⏰ Network Time", String(timeInterval), request)
         print(time)
     }
+
+    public func decodingError(_ error: MTError, _ context: DecodingError.Context? = nil, _ type: Any? = nil) {
+        self.configuration.output(nil, self.logDecodingError(error, context, type))
+    }
 }
 
 private extension NetworkLogger {
@@ -104,6 +108,28 @@ private extension NetworkLogger {
         return output
     }
 
+    private func logDecodingError(_ error: MTError, _ context: DecodingError.Context? = nil, _ type: Any? = nil) -> [String] {
+        var output: [String] = []
+
+        if let description = error.errorDescription {
+            let description = NetworkLogger.Configuration.Formatter.defaultEntryFormatter(identifier: "❌ Error Description", message: description)
+            output.append(description)
+        }
+
+        if let context = context {
+            var contextDescription = ""
+            if let type = type {
+                contextDescription += "Type \(type) mismatch" + "\n"
+            }
+            contextDescription += context.debugDescription + "\n" + context.codingPath.debugDescription
+
+            let debugDescription = NetworkLogger.Configuration.Formatter.defaultEntryFormatter(identifier: "❌ Decoding Context", message: contextDescription)
+            output.append(debugDescription)
+        }
+
+        return output
+    }
+
     // MARK: - Private - MultipartFormData Body
 
     private func multipartFormDataBody(_ data: [MultipartFormData]) -> [String] {
@@ -137,7 +163,7 @@ private extension NetworkLogger {
 public extension NetworkLogger {
     struct Configuration {
 
-        public typealias OutputType = (_ request: Requestable, _ items: [String]) -> Void
+        public typealias OutputType = (_ request: Requestable?, _ items: [String]) -> Void
 
         public let formatter: Formatter
         public let output: OutputType
@@ -152,7 +178,7 @@ public extension NetworkLogger {
 
         // MARK: - Default
 
-        public static func defaultOutput(request: Requestable, items: [String]) {
+        public static func defaultOutput(request: Requestable?, items: [String]) {
             for item in items {
                 print(item, separator: ",", terminator: "\n")
             }
@@ -189,7 +215,7 @@ extension NetworkLogger.Configuration {
             return String(data: data, encoding: .utf8) ?? "⛔️ String으로 Data를 인코딩할 수 없습니다."
         }
 
-        public static func defaultEntryFormatter(identifier: String, message: String, request: Requestable) -> String {
+        public static func defaultEntryFormatter(identifier: String, message: String, request: Requestable? = nil) -> String {
             let date = defaultEntryDateFormatter.string(from: Date())
             return divider + "MTNetwork_Logger: [\(date)]\n\(identifier):\n\(message)"
         }

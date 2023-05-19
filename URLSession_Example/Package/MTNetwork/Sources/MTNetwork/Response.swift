@@ -36,8 +36,24 @@ public extension Response {
 
             let response = try decoder.decode(T.self, from: self.data)
             return response
+        } catch DecodingError.dataCorrupted(let context) {
+            throw self.error(context)
+        } catch DecodingError.keyNotFound(_, let context) {
+            throw self.error(context)
+        } catch DecodingError.typeMismatch(let type, let context) {
+            throw self.error(context, type)
+        } catch DecodingError.valueNotFound(let type, let context) {
+            throw self.error(context, type)
         } catch {
-            throw MTError.responseDecodingFailed(self)
+            throw self.error()
         }
+    }
+}
+
+extension Response {
+    private func error(_ context: DecodingError.Context? = nil, _ type: Any? = nil) -> Error {
+        let mtError = MTError.responseDecodingFailed(self)
+        NetworkLogger().decodingError(mtError, context, type)
+        return mtError
     }
 }
