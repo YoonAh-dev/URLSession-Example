@@ -31,6 +31,11 @@ extension NetworkLogger {
             self.configuration.output(request, self.logNetworkError(failure, request))
         }
     }
+
+    public func measure(_ timeInterval: TimeInterval, _ request: Requestable) {
+        let time = self.configuration.formatter.entry("⏰ Network Time", String(timeInterval), request)
+        print(time)
+    }
 }
 
 private extension NetworkLogger {

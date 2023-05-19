@@ -9,9 +9,15 @@ import Foundation
 
 public struct Provider<T: Requestable>: Providable {
 
-    public init() { }
+    private var requestStartTime: Date?
+
+    public init() {
+        self.requestStartTime = nil
+    }
 
     public mutating func request(_ request: T) async throws -> Response {
+        self.requestStartTime = Date()
+
         let endpoint = self.endpoint(request)
         let urlRequest = try endpoint.urlRequest()
 
@@ -83,12 +89,20 @@ extension Provider {
         NetworkLogger().willSend(urlRequest, request)
     }
 
-    private func didReceive(_ result: Result<Response, MTError>, _ request: Requestable) {
+    private mutating func didReceive(_ result: Result<Response, MTError>, _ request: Requestable) {
         switch result {
         case .success(let success):
             NetworkLogger().didReceive(.success(success), request)
         case .failure(let failure):
             NetworkLogger().didReceive(.failure(failure), request)
         }
+        self.measure(request)
+    }
+
+    private mutating func measure(_ request: Requestable) {
+        if let requestStartTime = self.requestStartTime {
+            NetworkLogger().measure(Date().timeIntervalSince(requestStartTime), request)
+        }
+        self.requestStartTime = nil
     }
 }
