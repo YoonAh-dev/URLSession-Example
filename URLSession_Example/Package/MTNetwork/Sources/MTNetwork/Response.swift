@@ -9,16 +9,16 @@ import Foundation
 
 public struct Response {
 
-    /// The status code of the response.
+    ///  The status code of the response.
     public let statusCode: Int
 
-    /// The HTTPURLResponse object.
+    ///  The HTTPURLResponse object.
     public let response: HTTPURLResponse?
 
-    /// The response data.
+    ///  The response data.
     public let data: Data
 
-    /// A text description of the `Response`.
+    ///  A text description of the `Response`.
     public var description: String {
         return "Status Code: \(self.statusCode), Data Length: \(self.data.count)"
     }
@@ -26,6 +26,7 @@ public struct Response {
 }
 
 public extension Response {
+    ///  Decode the data in Response to the desired type
     func decode<T: Decodable>() throws -> T {
         do {
             let decoder = JSONDecoder()
@@ -51,6 +52,9 @@ public extension Response {
 }
 
 extension Response {
+
+    // MARK: - Private - Logger
+
     private func error(_ context: DecodingError.Context? = nil, _ type: Any? = nil) -> Error {
         let mtError = MTError.responseDecodingFailed(self)
         NetworkLogger().decodingError(mtError, context, type)

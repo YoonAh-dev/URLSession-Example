@@ -11,8 +11,8 @@ public extension URLRequest {
 
     typealias Parameters = [String: Any]
 
-    /// Encodes the type that complies with the `Encodable` protocol into `Data`.
-    /// Use `Data` as HTTP Body.
+    ///  Encodes the type that complies with the `Encodable` protocol into `Data`.
+    ///  Use `Data` as HTTP Body.
     mutating func encode(encodable: Encodable) throws -> URLRequest {
         do {
             let bodyData = try JSONEncoder().encode(encodable)
@@ -29,7 +29,7 @@ public extension URLRequest {
         }
     }
 
-    /// Insert parameter into URL Query.
+    ///  Insert parameter into URL Query.
     mutating func encode(parameters: Parameters) throws -> URLRequest {
         guard let url = self.url else {
             throw MTError.parameterEncodingFailed(reason: .missingURL)
@@ -46,6 +46,8 @@ public extension URLRequest {
         }
     }
 
+    ///  Encodes the `MultipartFormData` type  into `Data`.
+    ///  Use `Data` as HTTP Body.
     mutating func encode(data: [MultipartFormData]) throws -> URLRequest {
         do {
             let multipartformWrapper = MultipartFormDataWrapper(data: data)

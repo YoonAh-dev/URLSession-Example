@@ -9,16 +9,16 @@ import Foundation
 
 public struct EndPoint {
 
-    /// A string representation of the URL for the request.
+    ///  A string representation of the URL for the request.
     let url: String
 
-    /// The HTTP method for the request.
+    ///  The HTTP method for the request.
     let method: HTTPMethod
 
-    /// The `Task` for the request.
+    ///  The `Task` for the request.
     let task: HTTPTask
 
-    /// The HTTP header fields for the request.
+    ///  The HTTP header fields for the request.
     let httpHeaderFields: HTTPHeaders?
 
     public init(
@@ -36,7 +36,7 @@ public struct EndPoint {
 
 public extension EndPoint {
     
-    /// Returns the `Endpoint` converted to a `URLRequest` if valid. Throws an error otherwise.
+    ///  Returns the `Endpoint` converted to a `URLRequest` if valid. Throws an error otherwise.
     func urlRequest() throws -> URLRequest {
         guard let url = URL(string: self.url) else {
             let error = NSError(domain: "\(#file) :: \(#function) :: \(#line)", code: 404)

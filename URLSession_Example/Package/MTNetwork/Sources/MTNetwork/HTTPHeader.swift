@@ -19,7 +19,7 @@ public struct HTTPHeaders {
         headers.forEach { self.update($0) }
     }
 
-    /// Case-insensitively updates or appends the provided `HTTPHeader` into the instance.
+    ///  Case-insensitively updates or appends the provided `HTTPHeader` into the instance.
     public mutating func update(_ header: HTTPHeader) {
         guard let index = self.headers.index(of: header.name) else {
             self.headers.append(header)
@@ -29,7 +29,7 @@ public struct HTTPHeaders {
         self.headers.replaceSubrange(index...index, with: [header])
     }
 
-    /// Case-insensitively removes an `HTTPHeader`, if it exists, from the instance.
+    ///  Case-insensitively removes an `HTTPHeader`, if it exists, from the instance.
     public mutating func remove(name: String) {
         guard let index = self.headers.index(of: name) else { return }
 
@@ -44,7 +44,7 @@ public struct HTTPHeaders {
 }
 
 extension Array where Element == HTTPHeader {
-    /// Case-insensitively finds the index of an `HTTPHeader` with the provided name, if it exists.
+    ///  Case-insensitively finds the index of an `HTTPHeader` with the provided name, if it exists.
     func index(of name: String) -> Int? {
         let lowercasedName = name.lowercased()
         return firstIndex { $0.name.lowercased() == lowercasedName }
@@ -53,10 +53,10 @@ extension Array where Element == HTTPHeader {
 
 public struct HTTPHeader {
 
-    /// Name of the header.
+    ///  Name of the header.
     let name: String
 
-    /// Value of the header.
+    ///  Value of the header.
     let value: String
 
     public init(name: String, value: String) {

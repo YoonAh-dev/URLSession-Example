@@ -15,7 +15,7 @@ public enum HTTPTask {
     /// A request body set with `Encodable` type
     case requestJSONEncodable(Encodable)
 
-    /// A requests body set with encoded parameters.
+    /// A `URL` queryItem set with parameters.
     case requestParameters(_ parameters: [String: Any])
 
     /// A requests body set with encoded parameters combined with url parameters.

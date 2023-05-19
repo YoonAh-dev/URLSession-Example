@@ -14,19 +14,19 @@ public struct MultipartFormData {
         case parameter([String: Any])
     }
 
-    /// The method being used for providing form data.
+    ///  The method being used for providing form data.
     let provider: FormDataProvider
 
-    /// The name.
+    ///  The name.
     let name: String
 
-    /// The file name.
+    ///  The file name.
     let filename: String?
 
-    /// The MIME type
+    ///  The MIME type
     let mimeType: String?
 
-    /// Verify that this is the first data.
+    ///  Verify that this is the first data.
     var hasInitialBoundary: Bool
 
     public init(

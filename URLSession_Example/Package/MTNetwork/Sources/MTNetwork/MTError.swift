@@ -8,6 +8,7 @@
 import Foundation
 
 public enum MTError: Error {
+    
     ///  failed to create a valid `URL`.
     case invalidURL(error: Error)
 
@@ -26,19 +27,19 @@ public enum MTError: Error {
     ///  response failed with an invalid HTTP status code.
     case statusCode(reason: StatusCodeReason)
 
-    /// The underlying reason the `.multipartEncodingFailed` error occurred.
+    ///  The underlying reason the `.multipartEncodingFailed` error occurred.
     public enum MultipartEncodingFailureReason {
         case invalidData
         case dataEncodingFailure
     }
 
-    /// The underlying reason the `.parameterEncodingFailed` error occurred.
+    ///  The underlying reason the `.parameterEncodingFailed` error occurred.
     public enum ParameterEncodingFailureReason {
         case missingURL
         case jsonEncodingFailure(error: Error)
     }
 
-    /// The underlying reason the `.statusCode` error occurred.
+    ///  The underlying reason the `.statusCode` error occurred.
     public enum StatusCodeReason {
         case noRedirect(Response)
         case clientError(Response)

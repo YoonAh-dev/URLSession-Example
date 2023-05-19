@@ -8,6 +8,8 @@
 import Foundation
 
 public extension URL {
+
+    ///  Create URL with path
     init<T: Requestable>(request: T) {
         let path = request.path
         if path.isEmpty {
