@@ -1,12 +1,18 @@
 # URLSession-Example
 
-[Unsplash API](https://unsplash.com/documentation)를 사용해서 URLSession 데이터 fetch, upload 코드를 작성했습니다. 
+[Unsplash API](https://unsplash.com/documentation)를 사용해서 URLSession 데이터 fetch, upload 코드를 작성했습니다.<br>
 자세한 내용은 노션 블로그 글에서 보실 수 있습니다.
 
-- [URLSession 뜯어보기 - Shared Session 사용해서 데이터 보내고 받아보기](https://yoonah-dev.oopy.io/a187c843-11d1-4d53-8359-b1ec593a1729)
-- [URLSession 뜯어보기 - URLSessionConfiguration 사용, 네트워크 코드 공통화 시키기](https://yoonah-dev.oopy.io/5862dd7a-84c2-413a-8a3e-b19407109562)
+| Version |  |
+|:--:|--|
+|[main](https://github.com/YoonAh-dev/URLSession-Example/tree/main)|[23/05/19] 네트워크 통신을 위한 Swift Package Library를 추가했습니다.<br>[MTNetwork로 네트워크 통신 해보기](https://yoonah-dev.oopy.io/a5f73f01-68a6-411f-8b02-dacd598d7121)|
+|[version/230516](https://github.com/YoonAh-dev/URLSession-Example/tree/version/230516)|[URLSession 뜯어보기 - URLSessionConfiguration 사용, 네트워크 코드 공통화 시키기](https://yoonah-dev.oopy.io/5862dd7a-84c2-413a-8a3e-b19407109562)|
+|[version/230505](https://github.com/YoonAh-dev/URLSession-Example/tree/version/230505)|[URLSession 뜯어보기 - Shared Session 사용해서 데이터 보내고 받아보기](https://yoonah-dev.oopy.io/a187c843-11d1-4d53-8359-b1ec593a1729)|
+
 
 <br>
+
+하단의 내용은 [[version/230516]](https://github.com/YoonAh-dev/URLSession-Example/tree/version/230516)에서 볼 수 있습니다.
 
 ## 💭 네트워크 코드 공통화
 현재 브랜치에는 네트워크 코드를 공통화하여 동일한 코드가 반복되지 않게끔 했습니다. 하단에 있는 네트워크 코드들을 더 쉽고 간편하게 사용할 수 있습니다.
