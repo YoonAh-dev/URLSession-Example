@@ -45,8 +45,14 @@ private extension NetworkLogger {
         }
 
         if let body = urlRequest.httpBody {
-            let body = self.configuration.formatter.requestData(body)
-            output.append(self.configuration.formatter.entry("Request Body", body, request))
+            switch request.task {
+            case .uploadMultipart(let data), .uploadCompositeMultipart(let data, _):
+                let body = self.multipartFormDataBody(data)
+                output.append(self.configuration.formatter.entry("Request Body", body.joined(separator: "\n"), request))
+            default:
+                let body = self.configuration.formatter.requestData(body)
+                output.append(self.configuration.formatter.entry("Request Body", body, request))
+            }
         }
 
         if let method = urlRequest.httpMethod {
@@ -54,6 +60,35 @@ private extension NetworkLogger {
         }
 
         completion(output)
+    }
+
+    // MARK: - Private - MultipartFormData Body
+
+    private func multipartFormDataBody(_ data: [MultipartFormData]) -> [String] {
+        var body: [String] = []
+
+        for datum in data {
+            let convertedData = self.convertMultipartDatum(datum)
+            body.append(convertedData)
+        }
+
+        return body
+    }
+
+    // MARK: - Private - Convert Multipart
+
+    private func convertMultipartDatum(_ datum: MultipartFormData) -> String {
+        switch datum.provider {
+        case .data:
+            return "💦 Data is still difficult to encode."
+        case .parameter(let parameter):
+            do {
+                let data = try JSONSerialization.data(withJSONObject: parameter)
+                return self.configuration.formatter.requestData(data)
+            } catch {
+                return "⛔️ Failed To Convert Parameter Dictionary To Data"
+            }
+        }
     }
 }
 
@@ -114,7 +149,7 @@ extension NetworkLogger.Configuration {
 
         public static func defaultEntryFormatter(identifier: String, message: String, request: Requestable) -> String {
             let date = defaultEntryDateFormatter.string(from: Date())
-            return divider + "MTNetwork_Logger: [\(date)]\n> \(identifier): \(message)"
+            return divider + "MTNetwork_Logger: [\(date)]\n\(identifier):\n\(message)"
         }
 
         public static var defaultEntryDateFormatter: DateFormatter = {
