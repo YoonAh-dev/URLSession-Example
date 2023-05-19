@@ -39,21 +39,13 @@ public struct Provider<T: Requestable>: Providable {
             self.didReceive(.success(responseData), request)
             return responseData
         case (300..<400):
-            let error = MTError.statusCode(reason: .noRedirect(responseData))
-            self.didReceive(.failure(error), request)
-            throw error
+            throw self.error(MTError.statusCode(reason: .noRedirect(responseData)), request)
         case (400..<500):
-            let error = MTError.statusCode(reason: .clientError(responseData))
-            self.didReceive(.failure(error), request)
-            throw error
+            throw self.error(MTError.statusCode(reason: .clientError(responseData)), request)
         case (500..<600):
-            let error = MTError.statusCode(reason: .serverError(responseData))
-            self.didReceive(.failure(error), request)
-            throw error
+            throw self.error(MTError.statusCode(reason: .serverError(responseData)), request)
         default:
-            let error = MTError.statusCode(reason: .invalidStatus(responseData))
-            self.didReceive(.failure(error), request)
-            throw error
+            throw self.error(MTError.statusCode(reason: .invalidStatus(responseData)), request)
         }
     }
 }
@@ -79,6 +71,11 @@ extension Provider {
         return Response(statusCode: statusCode,
                         response: response,
                         data: data)
+    }
+    
+    fileprivate mutating func error(_ error: MTError, _ request: Requestable) -> MTError {
+        self.didReceive(.failure(error), request)
+        return error
     }
 }
 
