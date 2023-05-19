@@ -12,8 +12,12 @@ public struct Provider<T: Requestable>: Providable {
     public init() { }
 
     public mutating func request(_ request: T) async throws -> Response {
+
         let endpoint = self.endpoint(request)
         let urlRequest = try endpoint.urlRequest()
+
+        self.willSend(urlRequest, request)
+
         let session = self.defaultSession(timeout: request.requestTimeout)
 
         let (data, response) = try await session.data(for: urlRequest)
@@ -58,5 +62,14 @@ extension Provider {
         return Response(statusCode: statusCode,
                         response: response,
                         data: data)
+    }
+}
+
+extension Provider {
+
+    // MARK: - Private - Logger
+
+    private func willSend(_ urlRequest: URLRequest, _ request: Requestable) {
+        NetworkLogger().willSend(urlRequest, request)
     }
 }
