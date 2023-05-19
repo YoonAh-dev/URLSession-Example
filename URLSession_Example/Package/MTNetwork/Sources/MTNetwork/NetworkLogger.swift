@@ -45,7 +45,8 @@ private extension NetworkLogger {
         }
 
         if let body = urlRequest.httpBody {
-            output.append(self.configuration.formatter.entry("Request Body", body.description, request))
+            let body = self.configuration.formatter.requestData(body)
+            output.append(self.configuration.formatter.entry("Request Body", body, request))
         }
 
         if let method = urlRequest.httpMethod {
