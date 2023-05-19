@@ -23,28 +23,29 @@ public struct Provider<T: Requestable>: Providable {
         let (data, response) = try await session.data(for: urlRequest)
 
         guard let httpResponse = response as? HTTPURLResponse else {
-            throw MTError.statusCode(reason: .serverError)
+            throw MTError.invalidResponse
         }
+
+        let responseData = self.response(data, response: httpResponse)
 
         switch httpResponse.statusCode {
         case (200..<300):
-            let response = self.response(data, response: httpResponse)
-            self.didReceive(.success(response), request)
-            return response
+            self.didReceive(.success(responseData), request)
+            return responseData
         case (300..<400):
-            let error = MTError.statusCode(reason: .noRedirect)
+            let error = MTError.statusCode(reason: .noRedirect(responseData))
             self.didReceive(.failure(error), request)
             throw error
         case (400..<500):
-            let error = MTError.statusCode(reason: .clientError)
+            let error = MTError.statusCode(reason: .clientError(responseData))
             self.didReceive(.failure(error), request)
             throw error
         case (500..<600):
-            let error = MTError.statusCode(reason: .serverError)
+            let error = MTError.statusCode(reason: .serverError(responseData))
             self.didReceive(.failure(error), request)
             throw error
         default:
-            let error = MTError.statusCode(reason: .invalidStatus)
+            let error = MTError.statusCode(reason: .invalidStatus(responseData))
             self.didReceive(.failure(error), request)
             throw error
         }

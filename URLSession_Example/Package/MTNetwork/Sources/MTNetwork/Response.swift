@@ -36,8 +36,8 @@ public extension Response {
 
             let response = try decoder.decode(T.self, from: self.data)
             return response
-        } catch let error {
-            throw MTError.responseDecodingFailed(error: error)
+        } catch {
+            throw MTError.responseDecodingFailed(self)
         }
     }
 }

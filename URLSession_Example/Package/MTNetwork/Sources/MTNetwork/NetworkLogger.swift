@@ -28,7 +28,7 @@ extension NetworkLogger {
         case .success(let success):
             self.configuration.output(request, self.logNetworkResponse(success, request))
         case .failure(let failure):
-            break
+            self.configuration.output(request, self.logNetworkError(failure, request))
         }
     }
 }
@@ -37,31 +37,31 @@ private extension NetworkLogger {
     func logNetworkRequest(_ urlRequest: URLRequest, _ request: Requestable, completion: @escaping ([String]) -> Void) {
         var output: [String] = []
 
-        output.append(self.configuration.formatter.entry("Request", urlRequest.description, request))
+        output.append(self.configuration.formatter.entry("⬆ Request", urlRequest.description, request))
 
         var allHeaders: [String: String] = [:]
         if let headerFields = urlRequest.allHTTPHeaderFields {
             allHeaders.merge(headerFields) { $1 }
         }
-        output.append(self.configuration.formatter.entry("Request Headers", allHeaders.description, request))
+        output.append(self.configuration.formatter.entry("⬆ Request Headers", allHeaders.description, request))
 
         if let bodyStreams = urlRequest.httpBodyStream {
-            output.append(self.configuration.formatter.entry("Request BodyStreams", bodyStreams.description, request))
+            output.append(self.configuration.formatter.entry("⬆ Request BodyStreams", bodyStreams.description, request))
         }
 
         if let body = urlRequest.httpBody {
             switch request.task {
             case .uploadMultipart(let data), .uploadCompositeMultipart(let data, _):
                 let body = self.multipartFormDataBody(data)
-                output.append(self.configuration.formatter.entry("Request Body", body.joined(separator: "\n"), request))
+                output.append(self.configuration.formatter.entry("⬆ Request Body", body.joined(separator: "\n"), request))
             default:
                 let body = self.configuration.formatter.requestData(body)
-                output.append(self.configuration.formatter.entry("Request Body", body, request))
+                output.append(self.configuration.formatter.entry("⬆ Request Body", body, request))
             }
         }
 
         if let method = urlRequest.httpMethod {
-            output.append(self.configuration.formatter.entry("HTTP Request Method", method, request))
+            output.append(self.configuration.formatter.entry("⬆ HTTP Request Method", method, request))
         }
 
         completion(output)
@@ -71,14 +71,30 @@ private extension NetworkLogger {
         var output: [String] = []
 
         if let httpResponse = response.response {
-            output.append(self.configuration.formatter.entry("Response", httpResponse.description, request))
+            output.append(self.configuration.formatter.entry("⬇ Response", httpResponse.description, request))
         } else {
-            output.append(self.configuration.formatter.entry("Response", "Received empty network response for \(request).", request))
+            output.append(self.configuration.formatter.entry("⬇ Response", "Received empty network response for \(request).", request))
         }
 
         let responseBody = response.data
         let body = self.configuration.formatter.responseData(responseBody)
-        output.append(self.configuration.formatter.entry("Response Body", body, request))
+        output.append(self.configuration.formatter.entry("⬇ Response Body", body, request))
+
+        return output
+    }
+
+    func logNetworkError(_ error: MTError, _ request: Requestable) -> [String] {
+        var output: [String] = []
+
+        if let response = error.response {
+            output += self.logNetworkResponse(response, request)
+        } else {
+            output.append(self.configuration.formatter.entry("❌ Error", "Error calling \(request) : \(error)", request))
+        }
+
+        if let description = error.errorDescription {
+            output.append(self.configuration.formatter.entry("❌ Error Message", description, request))
+        }
 
         return output
     }

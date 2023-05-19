@@ -22,7 +22,7 @@ extension PhotoRequest: Requestable {
     var path: String {
         switch self {
         case .fetchImages:
-            return "/photos"
+            return "/photoss"
         }
     }
 

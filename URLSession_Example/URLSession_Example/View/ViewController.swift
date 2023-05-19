@@ -63,7 +63,7 @@ final class ViewController: UIViewController {
 
     private func startLoad() {
         self.fetchImages()
-        self.fetchCollections()
+//        self.fetchCollections()
     }
 
     private func fetchImages() {
